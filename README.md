@@ -25,7 +25,7 @@ Las tecnologías que se utilizan en esta aplicación son las siguientes:
 ## Despliegue
 
 El despliegue de esta aplicación web se encuentra en
-[Heroku](http://www.heroku.com).
+[Heroku](http://analizador-lexico-js.herokuapp.com/).
 
 ## Tests
 
