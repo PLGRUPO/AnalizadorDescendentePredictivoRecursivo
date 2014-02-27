@@ -41,7 +41,7 @@ h1, h2 {
 /* Estilos del contenido */
 
 #content {
-  background-color: rgba(32,32,32,0.75);
+  /*background-color: rgba(32,32,32,0.75);*/
   color: white;
   margin-top: 50px;
   margin-left: 150px;
@@ -62,7 +62,7 @@ h1, h2 {
 #contentright {
   width: 49%;
   height: 500px;
-  float: left;
+  float: right;
 }
 
 /* Lista de ficheros */
@@ -78,15 +78,18 @@ h1, h2 {
   float:left;
 }
 
+.filelist ul {
+  list-style-type: none;
+  padding: 0 15px;
+}
+
 .filelist ul li {
-  list-style: none;
   cursor: pointer;
-  padding: 0;
-  -webkit-transition: ease-in all 300ms;
-  -moz-transition: ease-in all 300ms;
-  -o-transition: ease-in all 300ms;
-  -ms-transition: ease-in all 300ms;
-  transition: ease-in all 300ms;
+  -webkit-transition: ease-in all 200ms;
+  -moz-transition: ease-in all 200ms;
+  -o-transition: ease-in all 200ms;
+  -ms-transition: ease-in all 200ms;
+  transition: ease-in all 200ms;
 }
 
 .filelist ul li:hover {
@@ -122,7 +125,7 @@ h1, h2 {
 }
 
 #buttons button {
-  width: 24%;
+  width: 24.175%;
   height: 50px;
   background-color: #2185c5;
   background: linear-gradient(#202020, #3C3C3C);
@@ -145,4 +148,32 @@ h1, h2 {
   background: -webkit-radial-gradient(#373737, #5B5B5B);
   background: -moz-radial-gradient(#373737, #5B5B5B);
   background: -o-radial-gradient(#373737, #5B5B5B);
+}
+
+/* Tabla de salida */
+#outputdiv {
+  margin-top: 35px;
+  width: 100%;
+  height: auto;
+}
+
+#outputdiv #outputheader {
+  text-align: center;
+  height: 50px;
+  width: 100%;
+  padding-top: 12px;
+  border: solid black;
+  border-width: 2px;
+  background: linear-gradient(#373737, #5B5B5B);
+}
+
+#outputdiv pre {
+  color: white;
+  height: auto;
+  border: solid black;
+  border-width: 2px;
+  background: linear-gradient(#202020, #3C3C3C);
+  background: -webkit-linear-gradient(#202020, #3C3C3C);
+  background: -moz-linear-gradient(#202020, #3C3C3C);
+  background: -o-linear-gradient(#202020, #3C3C3C);
 }

@@ -16,13 +16,31 @@
         <li>
           Fichero2.js
         </li>
+        <li>
+          Fichero3.js
+        </li>
+        <li>
+          Fichero4.js
+        </li>
+        <li>
+          Fichero5.js
+        </li>
+        <li>
+          Fichero6.js
+        </li>
       </ul>
     </div>
   </div>
 
   <div id="contentright">
     <h2>Entrada</h2>
-    <textarea id="entrada">Contenidos por defecto</textarea>
+    <textarea id="entrada">
+     var a = "hello"; // initialize a
+     var b = function(x) {
+             var c = 3;
+               return x+c;
+             };
+    </textarea>
   </div>
 
   <div id="buttons">
@@ -30,5 +48,72 @@
     <button type="button" id="savebutton">Guardar</button>
   </div>
 
-  Por aquí debe estar la salida del parsing
+  <!-- Esto debe estar oculto hasta que se pulse "Parsear" -->
+  <div id="outputdiv">
+    <div id="outputheader">Tokens encontrados</div>
+    <pre>
+    [
+        {
+            "value": "=",
+            "arity": "binary",
+            "first": {
+                "value": "a",
+                "arity": "name"
+            },
+            "second": {
+                "value": "hello",
+                "arity": "literal"
+            }
+        },
+        {
+            "value": "=",
+            "arity": "binary",
+            "first": {
+                "value": "b",
+                "arity": "name"
+            },
+            "second": {
+                "value": "function",
+                "arity": "function",
+                "first": [
+                    {
+                        "value": "x",
+                        "arity": "name"
+                    }
+                ],
+                "second": [
+                    {
+                        "value": "=",
+                        "arity": "binary",
+                        "first": {
+                            "value": "c",
+                            "arity": "name"
+                        },
+                        "second": {
+                            "value": 3,
+                            "arity": "literal"
+                        }
+                    },
+                    {
+                        "value": "return",
+                        "arity": "statement",
+                        "first": {
+                            "value": "+",
+                            "arity": "binary",
+                            "first": {
+                                "value": "x",
+                                "arity": "name"
+                            },
+                            "second": {
+                                "value": "c",
+                                "arity": "name"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+    </pre>
+  </div>
 </div>
