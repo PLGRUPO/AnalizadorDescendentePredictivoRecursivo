@@ -21,6 +21,7 @@ class User
   has n, :files
 end
 
+
 class File
   include DataMapper::Resource
   
