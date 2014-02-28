@@ -1,0 +1,25 @@
+%div#content
+  %h1 Analizador léxico de un subconjunto de Javascript
+
+
+  %div#contentleft
+    %h2 Ficheros
+    %div#fl.filelist
+      %ul
+        %li  Fichero1.js
+        %li  Fichero2.js
+    %div
+      %button{:class => 'btn btn-primary'} Mis Ficheros
+      %button{:class => 'btn btn-primary'} Ficheros Publicos
+
+  %div#contentright
+    %h2 Entrada
+    %textarea#INPUT var a = "hello";
+    %button#PARSE{:class => 'btn btn-primary'}  Parsear
+    %button#savebutton{:class => 'btn btn-primary'} Guardar
+
+  %div 
+    %p
+  %div#outputdiv
+    %div#outputheader  Tokens encontrados
+    %pre#OUTPUT
