@@ -15,7 +15,7 @@
   %div#contentright
     %h2 Entrada
     %form(action="#{action}" method="POST")
-      %textarea#INPUT(value="#{c.content}") var a = "hello";
+      %textarea#INPUT(name ="INPUT" value = "#{c.content}") var a = "hello";
       %button#savebutton{:type =>'submit', :class => 'btn btn-primary'} Guardar
       %button#PARSE{:class => 'btn btn-primary'}  Parsear
     

@@ -95,7 +95,7 @@ end
 
 post '/files/create' do
   c = Filo.new
-  c.content = "dfgdfgfg"
+  c.content = params["INPUT"]
   c.save
   redirect("/files/list")
 end
