@@ -15,23 +15,20 @@ DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/database.db" )
 class User
   include DataMapper::Resource
   
-  property :firstname, String, :key => true
+  property :userID, String, :key => true
   property :email, String
-  
-  has n, :files
 end
 
 
-class File
+class Filo
   include DataMapper::Resource
   
    property :id, Serial
    property :content, String
-   
-   belongs_to :user
 end
-DataMapper.finalize
-DataMapper.auto_upgrade!
+
+  DataMapper.finalize
+  DataMapper.auto_upgrade!
 
 enable :sessions
 
@@ -90,8 +87,23 @@ end
 
 
 get '/' do
-  haml :index
+  haml :index, :locals => {
+    :c => Filo.new,
+    :action => '/files/create'
+  }
 end
+
+post '/files/create' do
+  c = Filo.new
+  c.content = "dfgdfgfg"
+  c.save
+  redirect("/files/list")
+end
+
+get '/files/list' do
+  haml :listFiles, :locals => { :cs => Filo.all }
+end
+
 
 # Show form to create new contact
 get '/user/new' do
@@ -122,5 +134,10 @@ end
 __END__
 
 
-
+@@ listFiles
+%h1 Files
+%table
+  - cs.each do|c|
+    %tr
+      %td= c.content
 
