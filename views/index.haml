@@ -1,13 +1,13 @@
 %div#content
   %h1 Analizador léxico de un subconjunto de Javascript
-
-
+  %script{:type => 'text/javascript', :src => '/public/app.js'}
   %div#contentleft
     %h2 Ficheros
     %div#fl.filelist
       %ul
-        %li  Fichero1.js
-        %li  Fichero2.js
+        - fs.each do |c|
+          %li{:id => c.id, :onclick=>"replacecode('#{c.to_json(only: [:content])}')"}=  c.id
+        
     %div
       %button{:class => 'btn btn-primary'} Mis Ficheros
       %button{:class => 'btn btn-primary'} Ficheros Publicos
@@ -17,7 +17,7 @@
     %form(action="#{action}" method="POST")
       %textarea#INPUT(name ="INPUT" value = "#{c.content}") var a = "hello";
       %button#savebutton{:type =>'submit', :class => 'btn btn-primary'} Guardar
-      %button#PARSE{:class => 'btn btn-primary'}  Parsear
+    %button#PARSE{:class => 'btn btn-primary'}  Parsear
     
 
   %div 

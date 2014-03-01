@@ -38,7 +38,7 @@ helpers do
     # Put your real validation logic here
     usersession = User.new
     usersession = User.get(username)
-    return username == usersession.firstname;
+    return username == usersession.userID;
   end
   
   def is_logged_in?
@@ -69,7 +69,11 @@ post '/login' do
     # NOTE the right way to do messages like this is to use Rack::Flash
     # https://github.com/nakajima/rack-flash
     @message = "You've been logged in.  Welcome back, #{params["username"]}"
-    haml :index
+      haml :index, :locals => {
+    :c => Filo.new,
+    :fs => Filo.all,
+    :action => '/files/create'
+  }
   else
     puts "error"
     # See note above
@@ -81,7 +85,11 @@ end
 get '/logout' do
   clear_session
   @message = "You've been logged out."
-  haml :index
+        haml :index, :locals => {
+    :c => Filo.new,
+    :fs => Filo.all,
+    :action => '/files/create'
+  }
 end
 
 
@@ -89,6 +97,7 @@ end
 get '/' do
   haml :index, :locals => {
     :c => Filo.new,
+    :fs => Filo.all,
     :action => '/files/create'
   }
 end
@@ -119,11 +128,11 @@ post '/user/create' do
   c.attributes = params
   c.save
 
-  redirect("/user/#{c.id}")
+  redirect("/user/#{c.userID}")
 end
 
-get '/user/:id' do|id|
-  c = User.get(id)
+get '/user/:userID' do|userID|
+  c = User.get(userID)
   haml :show, :locals => { :c => c }
 end
 
