@@ -24,6 +24,7 @@ class Filo
   include DataMapper::Resource
   
    property :id, Serial
+   property :userID, String, :key => true
    property :content, String
 end
 
@@ -35,10 +36,10 @@ enable :sessions
 
 helpers do
   def validate(username, password)
-    # Put your real validation logic here
-    usersession = User.new
-    usersession = User.get(username)
-    return username == usersession.userID;
+    # Put your real validation logic here   
+    @usersession = User.new
+    @usersession = User.get(username)
+    return username == @usersession.userID;
   end
   
   def is_logged_in?
@@ -56,6 +57,14 @@ helpers do
       "not logged in"
     end
   end
+  
+  def files_of_user
+     if is_logged_in? 
+       @Filo_user = Filo.all(:userID => session["username"]) 
+    else
+       @Filo_user = Filo.all(:userID => "public") 
+    end
+  end
 end
 
 get '/login' do
@@ -66,12 +75,13 @@ post '/login' do
   if(validate(params["username"], params["password"]))
     session["logged_in"] = true
     session["username"] = params["username"]
+    files_of_user
     # NOTE the right way to do messages like this is to use Rack::Flash
     # https://github.com/nakajima/rack-flash
     @message = "You've been logged in.  Welcome back, #{params["username"]}"
       haml :index, :locals => {
     :c => Filo.new,
-    :fs => Filo.all,
+    :fs => @Filo_user,
     :action => '/files/create'
   }
   else
@@ -84,10 +94,11 @@ end
 
 get '/logout' do
   clear_session
+  files_of_user
   @message = "You've been logged out."
         haml :index, :locals => {
     :c => Filo.new,
-    :fs => Filo.all,
+    :fs => @Filo_user,
     :action => '/files/create'
   }
 end
@@ -95,9 +106,10 @@ end
 
 
 get '/' do
+  files_of_user
   haml :index, :locals => {
     :c => Filo.new,
-    :fs => Filo.all,
+    :fs => @Filo_user,
     :action => '/files/create'
   }
 end
@@ -105,6 +117,11 @@ end
 post '/files/create' do
   c = Filo.new
   c.content = params["INPUT"]
+  if is_logged_in? 
+    c.userID = session["username"] 
+  else
+    c.userID = "public"
+  end
   c.save
   redirect("/files/list")
 end
@@ -148,5 +165,7 @@ __END__
 %table
   - cs.each do|c|
     %tr
+      %td= c.userID
       %td= c.content
+      
 
