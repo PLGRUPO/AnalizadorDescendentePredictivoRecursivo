@@ -159,13 +159,5 @@ end
 
 __END__
 
-
-@@ listFiles
-%h1 Files
-%table
-  - cs.each do|c|
-    %tr
-      %td= c.userID
-      %td= c.content
       
 
