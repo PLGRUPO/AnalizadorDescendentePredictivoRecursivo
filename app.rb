@@ -123,7 +123,8 @@ post '/files/create' do
     c.userID = "public"
   end
   c.save
-  redirect("/files/list")
+    redirect("/") 
+  # redirect("/files/list")
 end
 
 get '/files/list' do
@@ -145,7 +146,8 @@ post '/user/create' do
   c.attributes = params
   c.save
 
-  redirect("/user/#{c.userID}")
+  #redirect("/user/#{c.userID}")
+   redirect("/") 
 end
 
 get '/user/:userID' do|userID|

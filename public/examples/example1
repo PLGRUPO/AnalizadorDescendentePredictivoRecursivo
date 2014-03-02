@@ -1,0 +1,2 @@
+var aux = 3;
+var et = 3 + aux;
