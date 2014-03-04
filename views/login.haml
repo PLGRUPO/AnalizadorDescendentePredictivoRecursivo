@@ -2,16 +2,22 @@
 
 %form{:action => "/login", :method => "post"}
   %legend Login here (hint: use "max" as the username")
-  %p
-    %label{:for => "username"}
-    %input{:type => "text", :name => "username", :id => "username"}
-  %p
-    %label{:for => "password"}
-    %input{:type => "password", :name => "password", :id => "password"}
-  %p
-    %input{:type => "submit"}
-    
-%a{:type => "button", :href =>'/user/new'} Sign Up
+  %table
+    %tr
+      %td
+        %label{:for => "username"} Username
+      %td
+        %input{:type => "text", :name => "username", :id => "username"}
+      %tr
+        %td
+          %label{:for => "password"} Password
+        %td
+          %input{:type => "password", :name => "password", :id => "password"}
+      %tr
+        %td
+          %input{:type => "submit"}
+        %td
+          %a.btn-primary{:type => "button", :href =>'/user/new'} Sign Up
     
 
   

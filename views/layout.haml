@@ -15,7 +15,9 @@
     %div#header.box
       %a{:type => 'button', :target => '_blank', :href => 'https://github.com/PLGRUPO/AnalizadorLexicoJS', :class => 'btn btn-primary'} 
         %i{:class => 'fa fa-github-alt'} Github
-      %a{:type => 'button', :class => 'btn btn-success', :href =>'test/index.html'} 
+      %a{:type => 'button', :href => '/', :class => 'btn btn-primary'} 
+        %i{:class => 'fa fa-home'} Home
+      %a{:type => 'button', :class => 'btn btn-success', :href =>'/test'} 
         %i{:class => 'fa fa-check-square-o'}  Test
       - if !is_logged_in?
         %a{:type => 'button', :class => 'btn btn-success', :href =>'/login'} 

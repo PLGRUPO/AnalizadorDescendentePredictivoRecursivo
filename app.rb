@@ -16,6 +16,7 @@ class User
   include DataMapper::Resource
   
   property :userID, String, :key => true
+  property :password, String
   property :email, String
 end
 
@@ -39,7 +40,10 @@ helpers do
     # Put your real validation logic here   
     @usersession = User.new
     @usersession = User.get(username)
-    return username == @usersession.userID;
+    if (@usersession.password == password)
+      return username == @usersession.userID;
+    else return username == "ERNO"
+    end
   end
   
   def is_logged_in?
@@ -157,6 +161,10 @@ end
 
 get '/users/' do
   haml :list, :locals => { :cs => User.all }
+end
+
+get '/test' do
+  haml :test
 end
 
 __END__

@@ -1,0 +1,22 @@
+
+%script{:type => 'text/javascript', :src => 'chai.js'}
+%script{:type => 'text/javascript', :src => 'mocha.js'}
+
+%link{:href => "mocha.css", :rel => "stylesheet", :type => "text/css" } 
+   
+%h1 TESTS
+
+%div#mocha
+:javascript
+  $(function() {
+   mocha.setup('tdd');
+   
+  });
+  
+%script{:type => 'text/javascript', :src => 'tests.js'}
+:javascript
+  $(function() {
+  
+    mocha.run();
+   
+  });
