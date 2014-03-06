@@ -9,7 +9,7 @@ require 'sinatra/base'
 set :public_folder, File.dirname(__FILE__)
 
 # full path!
-DataMapper.setup( :default, "sqlite3://#{Dir.pwd}/database.db" )
+DataMapper.setup( :default,ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/database.db" )
 
 # Define the model
 class User
