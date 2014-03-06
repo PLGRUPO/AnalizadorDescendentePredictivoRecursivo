@@ -10,15 +10,14 @@ function handleFileSelect(evt) {
     evt.stopPropagation();
     evt.preventDefault();
 
-
     var files = evt.dataTransfer.files;
-     var output = [];
+    var output = [];
     for (var i = 0, f; f = files[i]; i++) {
         if (f) {
             var r = new FileReader();
             r.onload = function (e) {
                 var contents = r.result;
-		document.getElementById('INPUT').innerHTML =  contents;
+                document.getElementById('INPUT').innerHTML =  contents;
             }
             r.readAsText(f);
             output.push(r);
@@ -26,23 +25,18 @@ function handleFileSelect(evt) {
             alert("Failed to load file");
         }
     }
-   
-    
 
-    evt.target.style.background = "white";
-
+    evt.target.style.opacity = "";
 }
-
-
 
 function handleDragOver(evt) {
     evt.stopPropagation();
     evt.preventDefault();
-    evt.target.style.background = "#c9e8f3";
+    evt.target.style.opacity = 0.8;
 }
 
 function handleDragLeave(evt) {
     evt.stopPropagation();
     evt.preventDefault();
-    evt.target.style.background = "white";
+    evt.target.style.opacity = 0.4;
 }
