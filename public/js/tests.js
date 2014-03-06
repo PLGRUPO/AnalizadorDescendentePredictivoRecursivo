@@ -26,10 +26,12 @@ var assert = chai.assert;
 };*/
 
 suite('Ficheros .ini', function() {
-	  
-	  test('return true -> Url correcta', function () {   
-        assert.deepEqual(foobar.Url(),'true');
-    });
+	
+	test("Simple parsing doesn't fail", function () {
+    function callParse () { parse('var i = 12;') }
+    var parse = make_parse();
+    assert.doesNotThrow(callParse, /.*/);
+  });
     
 	  test('return true -> Localstorage Disponible', function () {   
         assert.deepEqual(foobar.localStore(),'true');

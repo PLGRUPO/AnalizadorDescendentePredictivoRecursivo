@@ -42,14 +42,12 @@ h1, h2 {
 /* Estilos del contenido */
 
 #content {
-  /*background-color: rgba(32,32,32,0.75);*/
   color: white;
   margin-top: 50px;
   margin-left: 150px;
   margin-right: 150px;
   padding: 5px 25px;
   width: auto;
-  height: 650px;
 }
 
 #contentleft {

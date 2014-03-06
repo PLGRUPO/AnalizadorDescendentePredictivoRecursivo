@@ -1,9 +1,10 @@
 %script{:type => 'text/javascript', :src => 'public/js/chai.js'}
 %script{:type => 'text/javascript', :src => 'public/js/mocha.js'}
+%link{:type => 'text/css', :rel => 'stylesheet', :href => 'public/css/test_style.css'}
 
 %h1 Tests
 
-%div#mocha{:style => 'background-color: rgba(32,32,32,0.75);'}
+%div#mocha
 :javascript
   mocha.setup('tdd');
 %script{:type => 'text/javascript', :src => 'public/js/tests.js'}
