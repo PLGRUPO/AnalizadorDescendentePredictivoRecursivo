@@ -1,7 +1,8 @@
+
+
 var assert = chai.assert,
     expect = chai.expect,
     should = chai.should(); // Note that should has to be executed
-
 
 
 var foobar = {
@@ -28,8 +29,8 @@ var foobar = {
   }
   
 };
-/*
-suite('Ficheros .ini', function() {
+
+suite('Ficheros', function() {
 	  
 	  test('return true -> Url correcta', function () {   
         assert.deepEqual(foobar.Url(),'true');
@@ -56,4 +57,3 @@ suite('Ficheros .ini', function() {
     });
     
 });
- */
