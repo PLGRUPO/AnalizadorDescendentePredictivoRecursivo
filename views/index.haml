@@ -10,18 +10,16 @@
         - fs.each do |c|
           %li{:id => c.id, :onclick=>"replacecode('#{c.to_json(only: [:content])}')"}=  c.id      
     %div
-      %button{:class => 'btn btn-primary',:onclick=>"#{ @passBuffer= false; }"} Mis Ficheros
-      %button{:class => 'btn btn-primary'} Ficheros Publicos
-      %button#PARSE{:class => 'btn btn-success'}  Parsear
+      %button{:onclick=>"#{ @passBuffer= false; }"} My Files
+      %button Public Files
+      %button#PARSE Parse
       
   #contentright
     %h2 Entrada
-    %form(action="#{action}" method="POST")
+    %form{:style => 'height: 100%;'}(action="#{action}" method="POST")
       %textarea#INPUT(name ="INPUT" value = "#{c.content}") var a = "hello";
-      %button#savebutton{:type =>'submit', :class => 'btn btn-primary'} Guardar
-    
-    
+      %button#savebutton{:type =>'submit'} Save
   
-#outputdiv
-  #outputheader  Tokens encontrados
-  %pre#OUTPUT
+  #outputdiv{:style => 'display: none;'}
+    #outputheader  Tokens encontrados
+    %pre#OUTPUT

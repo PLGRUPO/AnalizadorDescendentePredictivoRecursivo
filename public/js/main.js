@@ -16,6 +16,7 @@ Object.prototype.error = function (message, t) {
 };
 
 function main() {
+    $('#outputdiv').css("display", "");
     var parse = make_parse();
 
     var source = INPUT.value;
