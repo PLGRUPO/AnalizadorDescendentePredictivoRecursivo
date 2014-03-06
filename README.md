@@ -3,8 +3,9 @@
 ## Descripción
 
 El objetivo de esta práctica es reescribir el analizador léxico de Javascript
-escrito por Douglas Crockford en [https://github.com/douglascrockford/TDOP/blob/master/tokens.js]() utilizando para ello expresiones regulares, de modo
-que el código sea más compacto.
+escrito por Douglas Crockford en [https://github.com/douglascrockford/TDOP/blob/master/tokens.js]()
+utilizando para ello expresiones regulares, de modo que el código sea más
+compacto.
 
 La implementación se realiza en forma de aplicación web donde se pueden
 cargar ficheros de Javascript y se mostrará el flujo de tokens en el que se
@@ -25,7 +26,7 @@ Las tecnologías que se utilizan en esta aplicación son las siguientes:
 ## Despliegue
 
 El despliegue de esta aplicación web se encuentra en
-[Heroku](http://analizador-lexico-js.herokuapp.com/).
+[Heroku](http://analizador-lexico-pl.herokuapp.com/).
 
 ## Tests
 
