@@ -1,5 +1,6 @@
-%h1 Analizador léxico de un subconjunto de Javascript
 %script{:type => 'text/javascript', :src => '/public/js/app.js'}
+
+%h1 Lexical analyzer for a subset of Javascript
 
 #dragandrophandler Drag &amp; Drop Files Here
 #contentleft
@@ -16,7 +17,7 @@
 #contentright
   %h2 Input
   %form{:style => 'height: 100%;'}(action="#{action}" method="POST")
-    %textarea#INPUT(name ="INPUT" value = "#{c.content}") var a = "hello";
+    %textarea#INPUT{:spellcheck => "false"}(name ="INPUT" value = "#{c.content}") var a = "hello";
     %button#savebutton{:type =>'submit'} Save
 
 #outputdiv{:style => 'display: none;'}

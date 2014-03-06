@@ -1,16 +1,11 @@
-%h1 TESTS
+%script{:type => 'text/javascript', :src => 'public/js/chai.js'}
+%script{:type => 'text/javascript', :src => 'public/js/mocha.js'}
 
-%div#mocha
+%h1 Tests
+
+%div#mocha{:style => 'background-color: rgba(32,32,32,0.75);'}
 :javascript
-  $(function() {
-   mocha.setup('tdd');
-   
-  });
-  
-%script{:type => 'text/javascript', :src => 'tests.js'}
+  mocha.setup('tdd');
+%script{:type => 'text/javascript', :src => 'public/js/tests.js'}
 :javascript
-  $(function() {
-  
-    mocha.run();
-   
-  });
+  mocha.run();
