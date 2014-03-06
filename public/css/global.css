@@ -4,7 +4,7 @@
 }
 
 body {
-  background: url(./images.jpg) no-repeat center center fixed;
+  background: url(../img/images.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -42,14 +42,12 @@ h1, h2 {
 /* Estilos del contenido */
 
 #content {
-  /*background-color: rgba(32,32,32,0.75);*/
   color: white;
   margin-top: 50px;
   margin-left: 150px;
   margin-right: 150px;
   padding: 5px 25px;
   width: auto;
-  height: 650px;
 }
 
 #contentleft {
@@ -74,6 +72,7 @@ h1, h2 {
   border: solid black;
   border-width: 2px;
   padding-top: 10px;
+  margin-bottom: 5px;
   height: 80%;
   width: 100%;
   float:left;
@@ -109,10 +108,14 @@ h1, h2 {
 /* Entrada de texto y botones */
 
 #INPUT {
+  font-family: monospace;
+  font-size: 0.9em;
   color: black;
   border: solid black;
   border-width: 2px;
   padding-top: 10px;
+  padding-left: 10px;
+  margin-bottom: 5px;
   min-height: 80%;
   max-height: 80%;
   min-width: 100%;
@@ -120,12 +123,7 @@ h1, h2 {
   float:left;
 }
 
-#buttons {
-  text-align: right;
-  width: 100%;
-}
-
-#buttons button {
+button {
   width: 24.175%;
   height: 50px;
   background-color: #2185c5;
@@ -137,14 +135,14 @@ h1, h2 {
   border-width: 2px;
 }
 
-#buttons button:hover {
+button:hover {
   background: linear-gradient(#373737, #5B5B5B);
   background: -webkit-linear-gradient(#373737, #5B5B5B);
   background: -moz-linear-gradient(#373737, #5B5B5B);
   background: -o-linear-gradient(#373737, #5B5B5B);
 }
 
-#buttons button:active {
+button:active {
   background: radial-gradient(#373737, #5B5B5B);
   background: -webkit-radial-gradient(#373737, #5B5B5B);
   background: -moz-radial-gradient(#373737, #5B5B5B);
@@ -153,6 +151,8 @@ h1, h2 {
 
 /* Tabla de salida */
 #outputdiv {
+  clear: both;
+  padding-top: 30px;
   width: 100%;
   height: auto;
 }
@@ -178,38 +178,37 @@ h1, h2 {
   background: -o-linear-gradient(#202020, #3C3C3C);
 }
 
-#dragandrophandler
-{
+#dragandrophandler {
 	border:2px dotted #0B85A1;
-	width:600px;
 	color:#000;
-	text-align:left;vertical-align:middle;
+	text-align:center;
+  vertical-align:middle;
 	padding:10px 10px 10 10px;
 	margin-bottom:10px;
 	font-size:200%;
 	background-color: white;
 	opacity:0.4;
 }
-#dragandrophandler:hover
-{
 
+#dragandrophandler:hover {
 	opacity:0.8;
 }
 
-.signIn{
--moz-box-shadow: 0 0 5px 5px #888;
--webkit-box-shadow: 0 0 5px 5px#888;
-box-shadow: 0 0 5px 5px #888;
-    background-color: #fff;
-    width:300px;
+.signIn {
+  -moz-box-shadow: 0 0 5px 5px #888;
+  -webkit-box-shadow: 0 0 5px 5px#888;
+  box-shadow: 0 0 5px 5px #888;
+  background-color: #fff;
+  width:300px;
 }
-.table{
-    background-color: #fff;
-    opacity:0.8;
-    margin-left: 2px;
-    border:2px solid #333;
-    text-color:black;
-    -moz-box-shadow: 0 0 5px #888;
--webkit-box-shadow: 0 0 5px#888;
-box-shadow: 0 0 5px #888;
+
+.table {
+  background-color: #fff;
+  opacity:0.8;
+  margin-left: 2px;
+  border:2px solid #333;
+  text-color:black;
+  -moz-box-shadow: 0 0 5px #888;
+  -webkit-box-shadow: 0 0 5px#888;
+  box-shadow: 0 0 5px #888;
 }

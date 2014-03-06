@@ -31,8 +31,9 @@ String.prototype.tokens = function () {
     var STRING              = /('(\\.|[^'])*'|"(\\.|[^"])*")/g;
     var ONELINECOMMENT      = /\/\/.*/g;
     var MULTIPLELINECOMMENT = /\/[*](.|\n)*?[*]\//g;
-    var TWOCHAROPERATORS    = /([+][+=]|-[-=]|=[=<>]|[<>][=<>]|&&|[|][|])/g;
-    var ONECHAROPERATORS    = /([-+*\/=()&|;:,<>{}[\]])/g; // May be some character is missing?
+    var THREECHAROPERATORS  = /[=!]==|<<=|>>[=>]/g;
+    var TWOCHAROPERATORS    = /([+][+=]|-[-=]|[*\/%&\^|!]=|=[=<>]|[<>][=<>]|&&|\|\|)/g;
+    var ONECHAROPERATORS    = /([-+*\/=()&|;:\.,<>{}[\]!?~])/g; // May be some character is missing?
     var tokens = [WHITES, ID, NUM, STRING, ONELINECOMMENT, 
                   MULTIPLELINECOMMENT, TWOCHAROPERATORS, ONECHAROPERATORS ];
 
@@ -77,16 +78,17 @@ String.prototype.tokens = function () {
             } else {
                 make('number', m[0]).error("Bad number");
             }
-        } 
-        // string
+        } // string
         else if (m = STRING.bexec(this)) {
             result.push(make('string', getTok().replace(/^["']|["']$/g,'')));
-        } 
-        // two char operator
+        } // three char operator
+        else if (m = THREECHAROPERATORS.bexec(this)) {
+            result.push(make('operator', getTok()));
+        } // two char operator
         else if (m = TWOCHAROPERATORS.bexec(this)) {
             result.push(make('operator', getTok()));
-        // single-character operator
-        } else if (m = ONECHAROPERATORS.bexec(this)){
+        } // single-character operator
+        else if (m = ONECHAROPERATORS.bexec(this)){
             result.push(make('operator', getTok()));
         } else {
           throw "Syntax error near '"+this.substr(i)+"'";

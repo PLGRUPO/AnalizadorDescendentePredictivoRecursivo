@@ -1,33 +1,39 @@
 %html
   %head
     %meta{:charset => "UTF-8"}
+
     %link{:href => "/public/css/global.css", :rel => "stylesheet", :type => "text/css" }
     %link{:href => "/public/css/metro-bootstrap.css", :rel => "stylesheet", :type => "text/css" }
-    %link{:href => "/public/font-awesome-4.0.3/css/font-awesome.min.css", :rel => "stylesheet", :type => "text/css" } 
+    %link{:href => "/public/font-awesome-4.0.3/css/font-awesome.min.css", :rel => "stylesheet", :type => "text/css" }
+
+    %link{:href => "/public/img/favicon.png", :rel => "shortcut icon", :type => "image/png"}
+    %link{:href => "/public/img/favicon.png", :rel => "icon", :type => "image/png"}
+
+
     %script{:type => 'text/javascript', :src => '/public/js/main.js'}
     %script{:type => 'text/javascript', :src => '/public/js/parse.js'}
     %script{:type => 'text/javascript', :src => '/public/js/tokens.js'}
     %script{:type => 'text/javascript', :src => '/public/js/Jquery.js'}
     %script{:type => 'text/javascript', :src => '/public/js/dragdrop.js'}
 
-    
-    %title Analizador lexico
+
+    %title Lexical analyzer
   %body      
-    %div#header.box
+    #header.box
       %a{:type => 'button', :target => '_blank', :href => 'https://github.com/PLGRUPO/AnalizadorLexicoJS', :class => 'btn btn-primary'} 
-        %i{:class => 'fa fa-github-alt'} Github
+        %i{:class => 'fa fa-github-alt'} &nbsp;Github
       %a{:type => 'button', :href => '/', :class => 'btn btn-primary'} 
-        %i{:class => 'fa fa-home'} Home
+        %i{:class => 'fa fa-home'} &nbsp;Home
       %a{:type => 'button', :class => 'btn btn-success', :href =>'/test'} 
-        %i{:class => 'fa fa-check-square-o'}  Test
+        %i{:class => 'fa fa-check-square-o'} &nbsp;Test
       - if !is_logged_in?
         %a{:type => 'button', :class => 'btn btn-success', :href =>'/login'} 
-          %i{:class => 'fa fa-sign-in'}  Sign In
+          %i{:class => 'fa fa-sign-in'} &nbsp;Sign In
       - else
         %a{:href => "/logout"} Log Out   
       - if !@error_message.nil?
         .error== There was an error: #{@error_message}
       - if !@message.nil?
         .message== #{@message}
-      
-    = yield
+    #content
+      = yield

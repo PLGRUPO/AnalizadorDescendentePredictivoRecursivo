@@ -1,59 +1,81 @@
-
-
 var assert = chai.assert,
     expect = chai.expect,
     should = chai.should(); // Note that should has to be executed
 
+var assert = chai.assert;
 
 var foobar = {
-  inputOriginal: function() {
-  	        var prev = localStorage.fileInput;
-        parseInput('[Cabecera1]\nentrada  = valor\n; Comentarios\n\n[Cabecera2]\n;no hay valores');
-        localStorage.fileInput = prev;
-    return document.getElementById('finaloutput').innerHTML;
+  input1: function() {
+    return mainTest("var a = 3;");
   },
-    localStore: function() {
-
-    if(localStorage){
-        return "true";
-    }else{
-        return "false";
-    }
+  input2: function() {
+    return mainTest("var a = 3; var b= 4; var c = a+b;");
+  },
+  input3: function() {
+    return mainTest("var a = 3; var b= 4; var c = a*b;");
+  },
+  input4: function() {
+    return mainTest("var a = 'hello';  var b = function(x) { var c = 3; return x+c;  };");
+  },
+  input5: function() {
+    return mainTest("var a = 'hello';  var b = function(x) { var c = 3; return x+c;  }; b(4);");
+  },
+  input6: function() {
+    return mainTest("var a/&#@:_;!|! = 'hello';");
+  },
+  input7: function() {
+    return mainTest('var Suma << 5;');
+  },
+  localStore: function() {
+    if(localStorage){
+      return "true";
+     
+    }else{
+      return "false";
+      
+    }
 
   },
   Url: function() {
-  	var url = window.location.pathname;
-  		if (url.indexOf('/test/index.html') > -1) {
-        return 'true';
-  		}
-  }
-  
+    var url = window.location.pathname;
+    if (url.indexOf('/test') > -1) {
+      return 'true';
+      
+    }
+  } 
 };
 
-suite('Ficheros', function() {
-	  
-	  test('return true -> Url correcta', function () {   
+
+suite('Lexical Analysis ', function() {
+    test('Verifying Url ', function () {   
         assert.deepEqual(foobar.Url(),'true');
     });
-    
-	  test('return true -> Localstorage Disponible', function () {   
+    test('Verifying Localstorage   ', function () {   
         assert.deepEqual(foobar.localStore(),'true');
     });
     
+    test('create variable and assign value ', function () {
+      assert.deepEqual(foobar.input1(),'{"value":"=","arity":"binary","first":{"value":"a","arity":"name"},"second":{"value":3,"arity":"literal"}}');
+    });
+    
+    test('Operator sum  ', function () {
+        assert.deepEqual(foobar.input2(),'[{"value":"=","arity":"binary","first":{"value":"a","arity":"name"},"second":{"value":3,"arity":"literal"}},{"value":"=","arity":"binary","first":{"value":"b","arity":"name"},"second":{"value":4,"arity":"literal"}},{"value":"=","arity":"binary","first":{"value":"c","arity":"name"},"second":{"value":"+","arity":"binary","first":{"value":"a","arity":"name"},"second":{"value":"b","arity":"name"}}}]');
+    });
+       test('Operator mult  ', function () {
+        assert.deepEqual(foobar.input3(),'[{"value":"=","arity":"binary","first":{"value":"a","arity":"name"},"second":{"value":3,"arity":"literal"}},{"value":"=","arity":"binary","first":{"value":"b","arity":"name"},"second":{"value":4,"arity":"literal"}},{"value":"=","arity":"binary","first":{"value":"c","arity":"name"},"second":{"value":"*","arity":"binary","first":{"value":"a","arity":"name"},"second":{"value":"b","arity":"name"}}}]');
+    });
+    test('Function with return value ', function () {
+        assert.deepEqual(foobar.input4(),'[{"value":"=","arity":"binary","first":{"value":"a","arity":"name"},"second":{"value":"hello","arity":"literal"}},{"value":"=","arity":"binary","first":{"value":"b","arity":"name"},"second":{"value":"function","arity":"function","first":[{"value":"x","arity":"name"}],"second":[{"value":"=","arity":"binary","first":{"value":"c","arity":"name"},"second":{"value":3,"arity":"literal"}},{"value":"return","arity":"statement","first":{"value":"+","arity":"binary","first":{"value":"x","arity":"name"},"second":{"value":"c","arity":"name"}}}]}}]');
+    });
+    
+          test('Function with return value and exec ', function () {
+        assert.deepEqual(foobar.input5(),'[{"value":"=","arity":"binary","first":{"value":"a","arity":"name"},"second":{"value":"hello","arity":"literal"}},{"value":"=","arity":"binary","first":{"value":"b","arity":"name"},"second":{"value":"function","arity":"function","first":[{"value":"x","arity":"name"}],"second":[{"value":"=","arity":"binary","first":{"value":"c","arity":"name"},"second":{"value":3,"arity":"literal"}},{"value":"return","arity":"statement","first":{"value":"+","arity":"binary","first":{"value":"x","arity":"name"},"second":{"value":"c","arity":"name"}}}]}},{"value":"(","arity":"binary","first":{"value":"b","arity":"name"},"second":[{"value":4,"arity":"literal"}]}]');
+    });
 
-    
-    test('Parseado correcto de una cadena', function () {
-        var prev = localStorage.fileInput;
-        parseInput('[Cabecera1]\nentrada  = valor\n; Comentarios\n\n[Cabecera2]\n;no hay valores');
-        assert.deepEqual(foobar.inputOriginal(), '<ol>\n\n\t  <li> <span class="Header"> {\n  "type": "Header",\n  "match": [\n    "[Cabecera1]",\n    "Cabecera1"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Blancos"> {\n  "type": "Blancos",\n  "match": [\n    "\\n"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Igualdad"> {\n  "type": "Igualdad",\n  "match": [\n    "entrada  = valor",\n    "entrada",\n    "valor"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Blancos"> {\n  "type": "Blancos",\n  "match": [\n    "\\n"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Comentarios"> {\n  "type": "Comentarios",\n  "match": [\n    "; Comentarios"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Blancos"> {\n  "type": "Blancos",\n  "match": [\n    "\\n\\n"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Header"> {\n  "type": "Header",\n  "match": [\n    "[Cabecera2]",\n    "Cabecera2"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Blancos"> {\n  "type": "Blancos",\n  "match": [\n    "\\n"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Comentarios"> {\n  "type": "Comentarios",\n  "match": [\n    ";no hay valores"\n  ]\n} </span>\n\t</li></ol>');
-        localStorage.fileInput = prev;
+       test('Error with invalid Id ', function () {
+        assert.deepEqual(foobar.input6(),"\"Syntaxerrornear\'#@:_;!|!=\'hello\';\'\"");
     });
-    
-    test('Parseado correcto de una cadena 1', function () {
-        var prev = localStorage.fileInput;
-        parseInput('[Cabecera1]\nentrada  = valor\n; Comentarios\n\n[Cabecera2]\n;no hay valores');
-        assert.deepEqual(foobar.inputOriginal(), '<ol>\n\n\t  <li> <span class="Header"> {\n  "type": "Header",\n  "match": [\n    "[Cabecera1]",\n    "Cabecera1"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Blancos"> {\n  "type": "Blancos",\n  "match": [\n    "\\n"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Igualdad"> {\n  "type": "Igualdad",\n  "match": [\n    "entrada  = valor",\n    "entrada",\n    "valor"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Blancos"> {\n  "type": "Blancos",\n  "match": [\n    "\\n"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Comentarios"> {\n  "type": "Comentarios",\n  "match": [\n    "; Comentarios"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Blancos"> {\n  "type": "Blancos",\n  "match": [\n    "\\n\\n"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Header"> {\n  "type": "Header",\n  "match": [\n    "[Cabecera2]",\n    "Cabecera2"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Blancos"> {\n  "type": "Blancos",\n  "match": [\n    "\\n"\n  ]\n} </span>\n\t\n\t  </li><li> <span class="Comentarios"> {\n  "type": "Comentarios",\n  "match": [\n    ";no hay valores"\n  ]\n} </span>\n\t</li></ol>');
-        localStorage.fileInput = prev;
+	  test('Error with operator assign  ', function () {
+        assert.deepEqual(foobar.input7(),'{"name":"SyntaxError","message":"Unknownoperator.","from":9,"to":11,"value":"&lt;&lt;"}');
     });
-    
 });

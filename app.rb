@@ -24,9 +24,9 @@ end
 class Filo
   include DataMapper::Resource
   
-   property :id, Serial
-   property :userID, String, :key => true
-   property :content, String
+  property :id, Serial
+  property :userID, String, :key => true
+  property :content, String
 end
 
   DataMapper.finalize
@@ -69,11 +69,11 @@ helpers do
   
   def files_of_user
     if is_my_files?
-     if is_logged_in? 
-       @Filo_user = Filo.all(:userID => session["username"]) 
-     else
-       @Filo_user = Filo.all(:userID => "public") 
-     end
+      if is_logged_in? 
+        @Filo_user = Filo.all(:userID => session["username"]) 
+      else
+        @Filo_user = Filo.all(:userID => "public") 
+      end
     else
       @Filo_user = Filo.all(:userID => "public")
     end   
@@ -93,11 +93,11 @@ post '/login' do
     # NOTE the right way to do messages like this is to use Rack::Flash
     # https://github.com/nakajima/rack-flash
     @message = "You've been logged in.  Welcome back, #{params["username"]}"
-      haml :index, :locals => {
-    :c => Filo.new,
-    :fs => @Filo_user,
-    :action => '/files/create'
-  }
+    haml :index, :locals => {
+      :c => Filo.new,
+      :fs => @Filo_user,
+      :action => '/files/create'
+    }
   else
     puts "error"
     # See note above
@@ -110,7 +110,7 @@ get '/logout' do
   clear_session
   files_of_user
   @message = "You've been logged out."
-        haml :index, :locals => {
+  haml :index, :locals => {
     :c => Filo.new,
     :fs => @Filo_user,
     :action => '/files/create'
@@ -137,7 +137,7 @@ post '/files/create' do
     c.userID = "public"
   end
   c.save
-    redirect("/") 
+  redirect("/") 
   # redirect("/files/list")
 end
 
@@ -161,7 +161,7 @@ post '/user/create' do
   c.save
 
   #redirect("/user/#{c.userID}")
-   redirect("/") 
+  redirect("/") 
 end
 
 get '/user/:userID' do|userID|
@@ -176,8 +176,3 @@ end
 get '/test' do
   haml :test
 end
-
-__END__
-
-      
-

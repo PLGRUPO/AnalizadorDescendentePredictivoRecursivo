@@ -16,6 +16,8 @@ Object.prototype.error = function (message, t) {
 };
 
 function main() {
+  
+    $('#outputdiv').css("display", "");
     var parse = make_parse();
 
     var source = INPUT.value;
@@ -30,6 +32,25 @@ function main() {
                 'value', 'arity', 'first', 'second', 'third', 'fourth'], 4);
     }
     OUTPUT.innerHTML = string.replace(/&/g, '&amp;').replace(/[<]/g, '&lt;');
+};
+
+function mainTest( inputSimulation){
+    var parse = make_parse();
+
+    var source = inputSimulation;
+    var string, tree;
+    try {
+        tree = parse(source);
+        //string = JSON.stringify(tree, ['type', 'value', 'from', 'to'],  4);
+        string = JSON.stringify(tree, ['key', 'name', 'message',
+             'value', 'arity', 'first', 'second', 'third', 'fourth'], 4);
+    } catch (e) {
+        string = JSON.stringify(e, ['name', 'message', 'from', 'to', 'key',
+                'value', 'arity', 'first', 'second', 'third', 'fourth'], 4);
+    }
+    var text = string.replace(/&/g, '&amp;').replace(/[<]/g, '&lt;');
+    var text1 = text.replace(/\n/g,'').replace(/ /g,'');
+    return text1;
 };
 
 window.onload = function() {

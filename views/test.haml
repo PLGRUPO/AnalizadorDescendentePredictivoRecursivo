@@ -1,13 +1,12 @@
-%h1 TESTS
-%link{:href => "/public/js/mocha.css", :rel => "stylesheet", :type => "text/css" }
-%script{:type => 'text/javascript', :src => '/public/js/chai.js'}
-%script{:type => 'text/javascript', :src => '/public/js/mocha.js'}
-%script{:type => 'text/javascript', :src => '/public/js/tests.js'}
-:javascript
-  $( function() {
-    window.alert("dddddd");
-    mocha.setup('tdd');
-    mocha.run();
-  });
-%div#mocha
+%script{:type => 'text/javascript', :src => 'public/js/chai.js'}
+%script{:type => 'text/javascript', :src => 'public/js/mocha.js'}
+%link{:type => 'text/css', :rel => 'stylesheet', :href => 'public/css/test_style.css'}
 
+%h1 Tests
+
+%div#mocha
+:javascript
+  mocha.setup('tdd');
+%script{:type => 'text/javascript', :src => 'public/js/tests.js'}
+:javascript
+  mocha.run();
