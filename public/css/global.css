@@ -42,14 +42,12 @@ h1, h2 {
 /* Estilos del contenido */
 
 #content {
-  /*background-color: rgba(32,32,32,0.75);*/
   color: white;
   margin-top: 50px;
   margin-left: 150px;
   margin-right: 150px;
   padding: 5px 25px;
   width: auto;
-  height: 650px;
 }
 
 #contentleft {
@@ -182,9 +180,9 @@ button:active {
 
 #dragandrophandler {
 	border:2px dotted #0B85A1;
-	width:600px;
 	color:#000;
-	text-align:left;vertical-align:middle;
+	text-align:center;
+  vertical-align:middle;
 	padding:10px 10px 10 10px;
 	margin-bottom:10px;
 	font-size:200%;

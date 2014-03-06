@@ -41,13 +41,14 @@ var foobar = {
   } 
 };
 
+
 suite('Lexical Analysis ', function() {
 	  
 	  test('Verifying Url ', function () {   
 	  
         assert.deepEqual(foobar.Url(),'true');
     });
-    
+
 	  test('Verifying Localstorage   ', function () {   
         assert.deepEqual(foobar.localStore(),'true');
     });
