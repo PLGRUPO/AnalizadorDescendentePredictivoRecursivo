@@ -1,7 +1,11 @@
 %h1 Contacts
-%table
+%table.table
+  %tr 
+    %td Name
+    %td Email
+    %td Password
   - cs.each do|c|
     %tr
-      %td= c.userID
+      %td= c.userID 
       %td= c.email
       %td= c.password

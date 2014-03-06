@@ -1,22 +1,27 @@
 %h1 Login page
-
-%form{:action => "/login", :method => "post"}
-  %legend Login here (hint: use "max" as the username")
-  %table
-    %tr
-      %td
-        %label{:for => "username"} Username
-      %td
-        %input{:type => "text", :name => "username", :id => "username"}
+%div{:style =>"margin: 20px 30%"}
+  %form.signIn{:action => "/login", :method => "post"}
+    %table
       %tr
         %td
+          %br
+          %label{:for => "username"} Username
+        %td
+          %br
+          %input{:type => "text", :name => "username", :id => "username", :placeholer => "Username"}
+      %tr
+        %td
+          %br
           %label{:for => "password"} Password
         %td
+          %br
           %input{:type => "password", :name => "password", :id => "password"}
-      %tr
+      %tr  
         %td
+          %br
           %input{:type => "submit"}
         %td
+          %br
           %a.btn-primary{:type => "button", :href =>'/user/new'} Sign Up
     
 

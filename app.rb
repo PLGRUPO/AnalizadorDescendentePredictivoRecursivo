@@ -34,6 +34,7 @@ end
 
 enable :sessions
 
+@passBuffer = false
 
 helpers do
   def validate(username, password)
@@ -50,6 +51,10 @@ helpers do
     session["logged_in"] == true
   end
   
+  def is_my_files?
+    @passBuffer == true
+  end  
+  
   def clear_session
     session.clear
   end
@@ -63,11 +68,15 @@ helpers do
   end
   
   def files_of_user
+    if is_my_files?
      if is_logged_in? 
        @Filo_user = Filo.all(:userID => session["username"]) 
-    else
+     else
        @Filo_user = Filo.all(:userID => "public") 
-    end
+     end
+    else
+      @Filo_user = Filo.all(:userID => "public")
+    end   
   end
 end
 
@@ -79,6 +88,7 @@ post '/login' do
   if(validate(params["username"], params["password"]))
     session["logged_in"] = true
     session["username"] = params["username"]
+    @passBuffer = true
     files_of_user
     # NOTE the right way to do messages like this is to use Rack::Flash
     # https://github.com/nakajima/rack-flash

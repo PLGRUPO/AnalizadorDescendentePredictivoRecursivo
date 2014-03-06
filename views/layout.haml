@@ -21,7 +21,7 @@
         %i{:class => 'fa fa-check-square-o'}  Test
       - if !is_logged_in?
         %a{:type => 'button', :class => 'btn btn-success', :href =>'/login'} 
-          %i{:class => 'fa fa-sign-in'}  Sig in
+          %i{:class => 'fa fa-sign-in'}  Sign In
       - else
         %a{:href => "/logout"} Log Out   
       - if !@error_message.nil?

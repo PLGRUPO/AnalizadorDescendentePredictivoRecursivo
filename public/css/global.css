@@ -15,6 +15,7 @@ body {
 }
 
 h1, h2 {
+  color: #fff !important;
   text-align: center;
   background-color: rgba(32,32,32,0.9);
 }
@@ -48,7 +49,7 @@ h1, h2 {
   margin-right: 150px;
   padding: 5px 25px;
   width: auto;
-  height: 1000px;
+  height: 650px;
 }
 
 #contentleft {
@@ -152,7 +153,6 @@ h1, h2 {
 
 /* Tabla de salida */
 #outputdiv {
-  margin-top: 35px;
   width: 100%;
   height: auto;
 }
@@ -194,4 +194,22 @@ h1, h2 {
 {
 
 	opacity:0.8;
+}
+
+.signIn{
+-moz-box-shadow: 0 0 5px 5px #888;
+-webkit-box-shadow: 0 0 5px 5px#888;
+box-shadow: 0 0 5px 5px #888;
+    background-color: #fff;
+    width:300px;
+}
+.table{
+    background-color: #fff;
+    opacity:0.8;
+    margin-left: 2px;
+    border:2px solid #333;
+    text-color:black;
+    -moz-box-shadow: 0 0 5px #888;
+-webkit-box-shadow: 0 0 5px#888;
+box-shadow: 0 0 5px #888;
 }

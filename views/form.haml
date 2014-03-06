@@ -1,25 +1,26 @@
 %h1 Create a new contact
-%form(action="#{action}" method="POST")
-  %table
-    %tr
-      %td
-        %label(for="userID") First Name
-      %td
-        %input(type="text" name="userID" value="#{c.userID}")
-    %tr
-      %td
-        %label(for="email") Email
-      %td
-        %input(type="text" name="email" value="#{c.email}")
-    %tr
-      %td
-        %label(for="password") Password
-      %td
-        %input(type="text" name="password" value="#{c.password}")
-    %tr
-      %td
-        %input(type="submit")
-      %td
-        %input(type="reset")
+%div{:style =>"margin: 20px 30%"}
+  %form.signIn(action="#{action}" method="POST")
+    %table
+      %tr
+        %td
+          %label(for="userID") First Name
+        %td
+          %input(type="text" name="userID" value="#{c.userID}")
+      %tr
+        %td
+          %label(for="email") Email
+        %td
+          %input(type="text" name="email" value="#{c.email}")
+      %tr
+        %td
+          %label(for="password") Password
+        %td
+          %input(type="text" name="password" value="#{c.password}")
+      %tr
+        %td
+          %input(type="submit")
+        %td
+          %input(type="reset")
   
 
