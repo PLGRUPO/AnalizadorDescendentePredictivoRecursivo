@@ -27,16 +27,21 @@ function handleFileSelect(evt) {
     }
 
     evt.target.style.opacity = "";
+    evt.target.style.height = "";
+    evt.target.style.backgroundColor = "";
 }
 
 function handleDragOver(evt) {
     evt.stopPropagation();
     evt.preventDefault();
     evt.target.style.opacity = 0.8;
+    evt.target.style.height = "125px";
+    evt.target.style.backgroundColor = "rgb(32, 128, 32)";
 }
 
 function handleDragLeave(evt) {
     evt.stopPropagation();
     evt.preventDefault();
-    evt.target.style.opacity = 0.4;
+    evt.target.style.height = "";
+    evt.target.style.backgroundColor = "rgb(128, 32, 32)";
 }
