@@ -1,25 +1,24 @@
-%div#content
-  %h1 Analizador léxico de un subconjunto de Javascript
-  %script{:type => 'text/javascript', :src => '/public/js/app.js'}
-  
-  #dragandrophandler Drag & Drop Files Here
-  #contentleft
-    %h2 Ficheros
-    #fl.filelist
-      %ul
-        - fs.each do |c|
-          %li{:id => c.id, :onclick=>"replacecode('#{c.to_json(only: [:content])}')"}=  c.id      
-    %div
-      %button{:onclick=>"#{ @passBuffer= false; }"} My Files
-      %button Public Files
-      %button#PARSE Parse
-      
-  #contentright
-    %h2 Entrada
-    %form{:style => 'height: 100%;'}(action="#{action}" method="POST")
-      %textarea#INPUT(name ="INPUT" value = "#{c.content}") var a = "hello";
-      %button#savebutton{:type =>'submit'} Save
-  
-  #outputdiv{:style => 'display: none;'}
-    #outputheader  Tokens encontrados
-    %pre#OUTPUT
+%h1 Analizador léxico de un subconjunto de Javascript
+%script{:type => 'text/javascript', :src => '/public/js/app.js'}
+
+#dragandrophandler Drag &amp; Drop Files Here
+#contentleft
+  %h2 Files
+  #fl.filelist
+    %ul
+      - fs.each do |c|
+        %li{:id => c.id, :onclick=>"replacecode('#{c.to_json(only: [:content])}')"}=  c.id      
+  %div
+    %button{:onclick=>"#{ @passBuffer= false; }"} My Files
+    %button Public Files
+    %button#PARSE Parse
+   
+#contentright
+  %h2 Input
+  %form{:style => 'height: 100%;'}(action="#{action}" method="POST")
+    %textarea#INPUT(name ="INPUT" value = "#{c.content}") var a = "hello";
+    %button#savebutton{:type =>'submit'} Save
+
+#outputdiv{:style => 'display: none;'}
+  #outputheader Tokens found
+  %pre#OUTPUT

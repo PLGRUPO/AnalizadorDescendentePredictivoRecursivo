@@ -1,22 +1,23 @@
 %html
   %head
     %meta{:charset => "UTF-8"}
+
     %link{:href => "/public/css/global.css", :rel => "stylesheet", :type => "text/css" }
     %link{:href => "/public/css/metro-bootstrap.css", :rel => "stylesheet", :type => "text/css" }
-    %link{:href => "/public/font-awesome-4.0.3/css/font-awesome.min.css", :rel => "stylesheet", :type => "text/css" } 
-    %link{:href => "/public/js/mocha.css", :rel => "stylesheet", :type => "text/css" }
+    %link{:href => "/public/font-awesome-4.0.3/css/font-awesome.min.css", :rel => "stylesheet", :type => "text/css" }
+
+    %link{:href => "/public/img/favicon.png", :rel => "shortcut icon", :type => "image/png"}
+    %link{:href => "/public/img/favicon.png", :rel => "icon", :type => "image/png"}
+
     %script{:type => 'text/javascript', :src => '/public/js/main.js'}
     %script{:type => 'text/javascript', :src => '/public/js/parse.js'}
     %script{:type => 'text/javascript', :src => '/public/js/tokens.js'}
     %script{:type => 'text/javascript', :src => '/public/js/Jquery.js'}
     %script{:type => 'text/javascript', :src => '/public/js/dragdrop.js'}
-    %script{:type => 'text/javascript', :src => '/public/js/chai.js'}
-    %script{:type => 'text/javascript', :src => '/public/js/mocha.js'}
-    %script{:type => 'text/javascript', :src => '/public/js/tests.js'}
-    
-    %title Analizador lexico
+
+    %title Analizador léxico
   %body      
-    %div#header.box
+    #header.box
       %a{:type => 'button', :target => '_blank', :href => 'https://github.com/PLGRUPO/AnalizadorLexicoJS', :class => 'btn btn-primary'} 
         %i{:class => 'fa fa-github-alt'} &nbsp;Github
       %a{:type => 'button', :href => '/', :class => 'btn btn-primary'} 
@@ -32,5 +33,5 @@
         .error== There was an error: #{@error_message}
       - if !@message.nil?
         .message== #{@message}
-      
-    = yield
+    #content
+      = yield
