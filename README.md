@@ -16,9 +16,9 @@ en el que se divide el código.
 
 Las tecnologías que se utilizan en esta aplicación son las siguientes:
 
-  - [Slim](http://www.w3schools.com/html/html5_intro.asp)
-  - [Sass](http://www.w3schools.com/css/)
-  - [CoffeeScript](http://www.w3schools.com/js/)
+  - [Slim](http://slim-lang.com/)
+  - [Sass](http://sass-lang.com/)
+  - [CoffeeScript](http://coffeescript.org/)
   - [Ruby](https://www.ruby-lang.org/es/)
   - [Sinatra](http://www.sinatrarb.com/)
   - [DataMapper](http://datamapper.org/)
