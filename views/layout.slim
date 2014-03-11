@@ -1,0 +1,44 @@
+html
+  head
+    meta charset="UTF-8"
+
+    link href="/public/css/global.css" rel="stylesheet" type="text/css"
+    link href="/public/css/metro-bootstrap.css" rel="stylesheet" type="text/css"
+    link href="/public/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"
+
+    link href="/public/img/favicon.png" rel="shortcut icon" type="image/png"
+    link href="/public/img/favicon.png" rel="icon" type="image/png"
+
+    script type='text/javascript' src='/public/js/main.js'
+    script type='text/javascript' src='/public/js/parse.js'
+    script type='text/javascript' src='/public/js/tokens.js'
+    script type='text/javascript' src='/public/js/Jquery.js'
+    script type='text/javascript' src='/public/js/dragdrop.js'
+
+    title
+      |  Lexical analyzer
+  body      
+    #header.box
+      a.btn.btn-primary type='button' target='_blank' href='https://github.com/PLGRUPO/AnalizadorLexicoJS'
+        i.fa.fa-github-alt
+          | &nbsp;Github
+      a.btn.btn-primary type='button' href='/'
+        i.fa.fa-home
+          | &nbsp;Home
+      a.btn.btn-success type='button' href='/test'
+        i.fa.fa-check-square-o
+          |  &nbsp;Test
+      - if !is_logged_in?
+        a.btn.btn-success type='button' href='/login'
+          i.fa.fa-sign-in
+            | &nbsp;Sign In
+      - else
+        a.btn.btn-danger type='button' href="/logout"
+         i.fa.fa-sign-out
+           | &nbsp; Log Out
+      - if !@error_message.nil?
+        .error = "There was an error: #{@error_message}"
+      - if !@message.nil?
+        .message = @message
+    #content
+      == yield
