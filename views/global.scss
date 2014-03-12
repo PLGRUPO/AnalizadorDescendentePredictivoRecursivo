@@ -1,0 +1,235 @@
+/* Mixins */
+
+@mixin bg-size($sz) {
+  -webkit-background-size: $sz;
+  -moz-background-size: $sz;
+  -o-background-size: $sz;
+  -ms-background-size: $sz;
+  background-size: $sz;
+}
+
+@mixin box-shadow($h-offs, $v-offs, $blur-r, $spread-r) {
+  -moz-box-shadow: $h-offs $v-offs $blur-r $spread-r;
+  -webkit-box-shadow: $h-offs $v-offs $blur-r $spread-r;
+  -o-box-shadow: $h-offs $v-offs $blur-r $spread-r;
+  -ms-box-shadow: $h-offs $v-offs $blur-r $spread-r;
+  box-shadow: $h-offs $v-offs $blur-r $spread-r;
+}
+
+@mixin transition($a, $b, $c) {
+  -webkit-transition: $a $b $c;
+  -moz-transition: $a $b $c;
+  -o-transition: $a $b $c;
+  -ms-transition: $a $b $c;
+  transition: $a $b $c;
+}
+
+@mixin bg-linear-gradient($a, $b) {
+  background: linear-gradient($a, $b);
+  background: -webkit-linear-gradient($a, $b);
+  background: -moz-linear-gradient($a, $b);
+  background: -o-linear-gradient($a, $b);
+}
+
+@mixin bg-radial-gradient($a, $b) {
+  background: radial-gradient($a, $b);
+  background: -webkit-radial-gradient($a, $b);
+  background: -moz-radial-gradient($a, $b);
+  background: -o-radial-gradient($a, $b);
+}
+
+/* Estilos generales */
+
+* {
+  font-family: arial;
+}
+
+body {
+  background: url(../img/images.jpg) no-repeat center center fixed;
+  margin: 5px;
+  color: white;
+  @include bg-size(cover);
+}
+
+h1, h2 {
+  color: #fff !important;
+  text-align: center;
+  background-color: rgba(32,32,32,0.9);
+}
+
+/* Estilos de la barra superior */
+
+.box {
+  @include box-shadow(0, 0, 10px, #888);
+  background-color: #FFF;
+  width: auto;
+}
+
+#header {
+  background-color: none;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+}
+
+/* Estilos del contenido */
+
+$content-height: 500px;
+
+#content {
+  color: white;
+  margin-top: 50px;
+  margin-left: 150px;
+  margin-right: 150px;
+  padding: 5px 25px;
+  width: auto;
+  min-width: 800px;
+}
+
+#contentleft {
+  text-align: left;
+  width: 49%;
+  height: $content-height;
+  margin-right: 2%;
+  float: left;
+}
+
+#contentright {
+  width: 49%;
+  height: $content-height;
+  float: right;
+}
+
+/* Lista de ficheros */
+
+.filelist {
+  background-color: white;
+  color: black;
+  border: solid black;
+  border-width: 2px;
+  padding-top: 10px;
+  margin-bottom: 5px;
+  height: 80%;
+  width: 100%;
+  float: left;
+
+  ul {
+    list-style-type: none;
+    padding: 0 15px;
+
+    li {
+      @include transition(ease-in, all, 200ms);
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgb(50, 118, 177);
+      }
+
+      &:active {
+        @include transition(ease-in, all, 0ms);
+        background-color: rgb(92, 184, 92);
+      }
+    }
+  }
+}
+
+/* Entrada de texto y botones */
+
+$border-size: 2px;
+$border-color-style: solid black;
+
+#INPUT {
+  font-family: monospace;
+  font-size: 0.9em;
+  color: black;
+  border: $border-color-style;
+  border-width: $border-size;
+  padding-top: 10px;
+  padding-left: 10px;
+  margin-bottom: 5px;
+  min-height: 80%;
+  max-height: 80%;
+  min-width: 100%;
+  max-width: 100%;
+  float: left;
+}
+
+button {
+  @include bg-linear-gradient(#202020, #3C3C3C);
+  width: 24.175%;
+  height: 50px;
+  background-color: #2185c5;
+  border: $border-color-style;
+  border-width: $border-size;
+
+  &:hover {
+    @include bg-linear-gradient(#373737, #5B5B5B);
+  }
+
+  &:active {
+    @include bg-radial-gradient(#373737, #5B5B5B);
+  }
+}
+
+/* Tabla de salida */
+
+#outputdiv {
+  clear: both;
+  padding-top: 30px;
+  width: 100%;
+  height: auto;
+
+  pre {
+    @include bg-linear-gradient(#202020, #3C3C3C);
+    color: white;
+    height: auto;
+    border: $border-color-style;
+    border-width: $border-size;
+  }
+}
+
+#outputheader {
+  @include bg-linear-gradient(#373737, #5B5B5B);
+  text-align: center;
+  height: 50px;
+  width: 100%;
+  padding-top: 12px;
+  border: $border-color-style;
+  border-width: $border-size;
+}
+
+#dragandrophandler {
+	border: 2px dotted #0B85A1;
+	color: #000;
+	text-align: center;
+  vertical-align: middle;
+	padding: 10px 10px 10 10px;
+	margin-bottom: 10px;
+	font-size: 200%;
+	background-color: white;
+	opacity: 0.4;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.signIn {
+  @include box-shadow(0, 5px, 5px, #888);
+  background-color: #fff;
+  padding: 10px;
+  min-width: 350px;
+
+  table {
+    width: 100%;
+  }
+}
+
+.table {
+  @include box-shadow(0, 0, 5px, #888);
+  background-color: #fff;
+  opacity: 0.8;
+  margin-left: 2px;
+  border: 2px solid #333;
+  text-color: black;
+}

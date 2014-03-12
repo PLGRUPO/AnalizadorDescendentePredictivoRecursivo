@@ -1,7 +1,8 @@
 require 'rubygems'
 require 'sinatra'
+require 'sass'
 require 'bcrypt'
-require 'haml'
+require 'slim'
 require 'data_mapper'
 require 'sinatra/base'
 
@@ -29,8 +30,8 @@ class Filo
   property :content, String
 end
 
-  DataMapper.finalize
-  DataMapper.auto_upgrade!
+DataMapper.finalize
+DataMapper.auto_upgrade!
 
 enable :sessions
 
@@ -80,8 +81,11 @@ helpers do
   end
 end
 
+get ('/public/css/test_style.css') { scss :test_style }
+get ('/public/css/global.css') { scss :global }
+
 get '/login' do
-  haml :login
+  slim :login
 end
 
 post '/login' do
@@ -93,7 +97,7 @@ post '/login' do
     # NOTE the right way to do messages like this is to use Rack::Flash
     # https://github.com/nakajima/rack-flash
     @message = "You've been logged in.  Welcome back, #{params["username"]}"
-    haml :index, :locals => {
+    slim :index, :locals => {
       :c => Filo.new,
       :fs => @Filo_user,
       :action => '/files/create'
@@ -102,7 +106,7 @@ post '/login' do
     puts "error"
     # See note above
     @error_message = "Sorry, those credentials aren't valid."
-    haml :login
+    slim :login
   end
 end
 
@@ -110,18 +114,16 @@ get '/logout' do
   clear_session
   files_of_user
   @message = "You've been logged out."
-  haml :index, :locals => {
+  slim :index, :locals => {
     :c => Filo.new,
     :fs => @Filo_user,
     :action => '/files/create'
   }
 end
 
-
-
 get '/' do
   files_of_user
-  haml :index, :locals => {
+  slim :index, :locals => {
     :c => Filo.new,
     :fs => @Filo_user,
     :action => '/files/create'
@@ -142,13 +144,13 @@ post '/files/create' do
 end
 
 get '/files/list' do
-  haml :listFiles, :locals => { :cs => Filo.all }
+  slim :listFiles, :locals => { :cs => Filo.all }
 end
 
 
 # Show form to create new contact
 get '/user/new' do
-  haml :form, :locals => {
+  slim :form, :locals => {
     :c => User.new,
     :action => '/user/create'
   }
@@ -166,13 +168,13 @@ end
 
 get '/user/:userID' do|userID|
   c = User.get(userID)
-  haml :show, :locals => { :c => c }
+  slim :show, :locals => { :c => c }
 end
 
 get '/users/' do
-  haml :list, :locals => { :cs => User.all }
+  slim :list, :locals => { :cs => User.all }
 end
 
 get '/test' do
-  haml :test
+  slim :test
 end

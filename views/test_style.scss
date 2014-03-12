@@ -1,34 +1,32 @@
-#mocha {
-  background-color: rgba(32,32,32,0.75);
-  padding-top: 10px;
-  padding-right: 10px;
-}
-
-#mocha .progress {
-  background-color: rgba(0,0,0,0);
-  height: auto;
-  float: right;
-}
-
-/*#mocha .duration {
-
-}*/
-
-#mocha a {
-  color: auto;
-}
-
-#mocha h1, h2 {
+.titles {
   text-align: left;
   padding-left: 10px;
 }
 
-#mocha h1 {
-  font-size: 27px;
-}
+#mocha {
+  background-color: rgba(32,32,32,0.75);
+  padding-top: 10px;
+  padding-right: 10px;
 
-#mocha h2 {
-  font-size: 25px;
+  .progress {
+    background-color: rgba(0,0,0,0);
+    height: auto;
+    float: right;
+  }
+
+  a {
+    color: auto;
+  }
+
+  h1 {
+    @extend .titles;
+    font-size: 27px;
+  }
+
+  h2 {
+    @extend .titles;
+    font-size: 25px;
+  }
 }
 
 #mocha-stats {
@@ -38,10 +36,10 @@
 #mocha-report {
   list-style-type: none;
   padding-bottom: 10px;
-}
 
-#mocha-report li {
-  list-style-type: none;
+  li {
+    list-style-type: none;
+  }
 }
 
 .pass h2 {
@@ -52,6 +50,10 @@
   background-color: rgba(255,32,32,0.6);
 }
 
+.test h2:hover {
+  cursor: pointer;
+}
+
 .error:hover {
   border-color: rgba(255,32,32,0.6);
   -webkit-transition: ease-in all 200ms;
@@ -59,10 +61,6 @@
   -o-transition: ease-in all 200ms;
   -ms-transition: ease-in all 200ms;
   transition: ease-in all 200ms;
-}
-
-.test h2:hover {
-  cursor: pointer;
 }
 
 span.duration {
