@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'sass'
 require 'bcrypt'
 require 'slim'
 require 'data_mapper'
@@ -79,6 +80,9 @@ helpers do
     end   
   end
 end
+
+get ('/public/css/test_style.css') { scss :test_style }
+get ('/public/css/global.css') { scss :global }
 
 get '/login' do
   slim :login

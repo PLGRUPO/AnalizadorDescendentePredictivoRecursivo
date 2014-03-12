@@ -118,6 +118,7 @@ GEM
     ruby-openid-apps-discovery (1.2.0)
       ruby-openid (>= 2.1.7)
     rufus-tokyo (1.0.7)
+    sass (3.3.2)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -160,6 +161,7 @@ DEPENDENCIES
   do_sqlite3
   pg
   rspec
+  sass
   sinatra
   sinatra-authentication
   sinatra-google-auth
