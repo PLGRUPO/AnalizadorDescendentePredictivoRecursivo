@@ -54,7 +54,7 @@ suite('Lexical Analysis ', function() {
         assert.deepEqual(foobar.localStore(),'true');
     });
     
-    test('create variable and assign value ', function () {
+    test('Create variable and assign value ', function () {
       assert.deepEqual(foobar.input1(),'{"value":"=","arity":"binary","first":{"value":"a","arity":"name"},"second":{"value":3,"arity":"literal"}}');
     });
     
