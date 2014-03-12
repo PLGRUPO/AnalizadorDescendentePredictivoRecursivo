@@ -45,7 +45,7 @@
 }
 
 body {
-  background: url(../img/images.jpg) no-repeat center center fixed;
+  background: url("../public/../resources/images/images.jpg") no-repeat center center fixed;
   margin: 5px;
   color: white;
   @include bg-size(cover);

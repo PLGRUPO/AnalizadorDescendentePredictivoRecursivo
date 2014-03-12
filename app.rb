@@ -81,12 +81,15 @@ helpers do
   end
 end
 
-get ('/public/css/test_style.css') { scss :test_style }
-get ('/public/css/global.css') { scss :global }
 
-get '/coffee/*.js' do
+get '/style/sass/*.css' do
   filename = params[:splat].first
-  coffee "../public/coffee/#{filename}".to_sym
+  scss "../public/style/sass/#{filename}".to_sym
+end
+
+get '/scripts/coffee/*.js' do
+  filename = params[:splat].first
+  coffee "../public/scripts/coffee/#{filename}".to_sym
 end
 
 get '/login' do
