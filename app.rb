@@ -5,7 +5,7 @@ require 'bcrypt'
 require 'slim'
 require 'data_mapper'
 require 'sinatra/base'
-
+require 'coffee-script'
 
 set :public_folder, File.dirname(__FILE__)
 
@@ -83,6 +83,11 @@ end
 
 get ('/public/css/test_style.css') { scss :test_style }
 get ('/public/css/global.css') { scss :global }
+
+get '/coffee/*.js' do
+  filename = params[:splat].first
+  coffee "../public/coffee/#{filename}".to_sym
+end
 
 get '/login' do
   slim :login

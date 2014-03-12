@@ -7,6 +7,7 @@ gem 'slim'
 gem 'sass'
 gem 'sinatra-authentication'
 gem 'sinatra-google-auth'
+gem 'coffee-script'
 
 group :development, :test do
   gem 'dm-sqlite-adapter'
