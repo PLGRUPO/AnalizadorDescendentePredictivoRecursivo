@@ -14,10 +14,14 @@ h1 Predictive Recursive Descent Parser
       - fs.each do |c|
         li id=c.id onclick="replacecode('#{ c.to_json(only: [:content]) }')"= c.id      
   div
-    button onclick="#{ @passBuffer= false; }" My Files
-    button Public Files
+    button#userFilesBtn onclick="#{ @passBuffer= false; }" My Files
+    button#publicFilesBtn Public Files
     button#PARSE Parse
-   
+javascript:
+  $( document ).ready(function() {
+    $('#userFilesBtn').on('click', function(){alert("¿quieres ver tus fichero?-> espera sentado");});
+    $('#publicFilesBtn').on('click', function(){alert("¿quieres todos los fichero?-> no seas cotilla");});
+  });
 #contentright
   h2 Input
   form style='height: 100%;' action="#{action}" method="POST"
