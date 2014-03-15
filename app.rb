@@ -107,7 +107,6 @@ post '/login' do
     @message = "You've been logged in.  Welcome back, #{params["username"]}"
     slim :index, :locals => {
       :c => Filo.new,
-      :fs => @Filo_user,
       :action => '/files/create'
     }
   else
@@ -124,7 +123,6 @@ get '/logout' do
   @message = "You've been logged out."
   slim :index, :locals => {
     :c => Filo.new,
-    :fs => @Filo_user,
     :action => '/files/create'
   }
 end
@@ -133,7 +131,6 @@ get '/' do
   files_of_user
   slim :index, :locals => {
     :c => Filo.new,
-    :fs => @Filo_user,
     :action => '/files/create'
   }
 end
