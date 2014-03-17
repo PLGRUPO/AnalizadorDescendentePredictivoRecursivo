@@ -7,7 +7,7 @@ main = ()->
     result = """<div class="error">#{result}</div>"""
     
   OUTPUT.innerHTML = result
-  alert result
+
 window.onload = ()-> 
   PARSE.onclick = main
 

@@ -1,6 +1,7 @@
-script type='text/javascript' src='/public/scripts/js/app.js'
+script src='/public/scripts/coffee/app.js'
 script src="/scripts/coffee/main.js"
 script type='text/javascript' src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+
 
 h1 Predictive Recursive Descent Parser
 
@@ -14,14 +15,12 @@ h1 Predictive Recursive Descent Parser
       - @Filo_user.each do |c|
         li id=c.id onclick="replacecode('#{ c.to_json(only: [:content]) }')"= c.id      
   div
-    button#userFilesBtn onclick="#{ @passBuffer= false; }" My Files
-    button#publicFilesBtn Public Files
     button#PARSE Parse
 
 javascript:
 
   $( document ).ready(function() {
-    var editor = CodeMirror.fromTextArea($('#INPUT')[0], { mode: "javascript",
+    var editor = CodeMirror.fromTextArea($('#')[0], { mode: "javascript",
     lineNumbers: true,
     lineWrapping: true,
     extraKeys: {"Ctrl-Q": function(cm){ cm.foldCode(cm.getCursor()); }},
@@ -29,18 +28,9 @@ javascript:
     gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
   });
   editor.foldCode(CodeMirror.Pos(11, 0));
-    $('#userFilesBtn').on('click', function(){
-      //alert("¿quieres ver tus fichero?-> espera sentado");
-       "#{@Filo_user = Filo.all(:userID => session["username"])}"
-           $('#ulfilelist').empty();
-      
-    });
-    $('#publicFilesBtn').on('click', function(){
-    //alert("¿quieres todos los fichero?-> no seas cotilla");
-     "#{@Filo_user = Filo.all(:userID => "public")}"
-     $('#ulfilelist').empty();
-    });
+
   });
+  
 #contentright
   h2 Input
   form style='height: 100%;' action="#{action}" method="POST"
@@ -48,6 +38,6 @@ javascript:
       |  a = 5
     button#savebutton type='submit' Save
 
-#outputdiv style='display: none;'
+#outputdiv 
   #outputheader Tokens found
-  pre#OUTPUT
+  pre#OUTPUT 

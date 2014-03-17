@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+@import 'metro-ui/modern.less';
+@import 'metro-ui/modern-responsive.less'; // for responsive design
+
 body {
   margin:0;
 }
