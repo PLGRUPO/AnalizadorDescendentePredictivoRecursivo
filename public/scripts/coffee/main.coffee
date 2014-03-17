@@ -1,34 +1,56 @@
-main = ()->
+main = undefined
+parse = undefined
+main = ->
+  result = undefined
+  source = undefined
   source = INPUT.value
-  
-  try 
+  try
     result = JSON.stringify(parse(source), null, 2)
-  catch result
-    result = """<div class="error">#{result}</div>"""
-    
+  catch _error
+    result = _error
+    result = "<div class=\"error\">" + result + "</div>"
   OUTPUT.innerHTML = result
 
-window.onload = ()-> 
+window.onload = ->
   PARSE.onclick = main
 
 Object.constructor::error = (message, t) ->
   t = t or this
   t.name = "SyntaxError"
   t.message = message
-  throw treturn
+  throw treturnreturn
 
 RegExp::bexec = (str) ->
+  i = undefined
+  m = undefined
   i = @lastIndex
   m = @exec(str)
   return m  if m and m.index is i
   null
 
 String::tokens = ->
-  from = undefined # The index of the start of the token.
-  i = 0 # The index of the current character.
-  n = undefined # The number value.
-  m = undefined # Matching
-  result = [] # An array to hold the results.
+  ID = undefined
+  MULTIPLELINECOMMENT = undefined
+  NUM = undefined
+  ONECHAROPERATORS = undefined
+  ONELINECOMMENT = undefined
+  RESERVED_WORD = undefined
+  STRING = undefined
+  WHITES = undefined
+  from = undefined
+  getTok = undefined
+  i = undefined
+  m = undefined
+  make = undefined
+  n = undefined
+  result = undefined
+  rw = undefined
+  tokens = undefined
+  from = undefined
+  i = 0
+  n = undefined
+  m = undefined
+  result = []
   WHITES = /\s+/g
   ID = /[a-zA-Z_]\w*/g
   NUM = /\b\d+(\.\d*)?([eE][+-]?\d+)?\b/g
@@ -46,8 +68,6 @@ String::tokens = ->
     ONECHAROPERATORS
   ]
   RESERVED_WORD = p: "P"
-  
-  # Make a token object.
   make = (type, value) ->
     type: type
     value: value
@@ -55,77 +75,75 @@ String::tokens = ->
     to: i
 
   getTok = ->
+    str = undefined
     str = m[0]
-    i += str.length # Warning! side effect on i
+    i += str.length
     str
 
-  
-  # Begin tokenization. If the source string is empty, return nothing.
   return  unless this
-  
-  # Loop through this text
   while i < @length
-    tokens.forEach (t) -> # Only ECMAScript5
+    tokens.forEach (t) ->
       t.lastIndex = i
       return
 
     from = i
-    
-    # Ignore whitespace and comments
-    if m = WHITES.bexec(this) or 
-           (m = ONELINECOMMENT.bexec(this)) or 
-           (m = MULTIPLELINECOMMENT.bexec(this))
+    if m = WHITES.bexec(this) or (m = ONELINECOMMENT.bexec(this)) or (m = MULTIPLELINECOMMENT.bexec(this))
       getTok()
-    
-    # name.
     else if m = ID.bexec(this)
       rw = RESERVED_WORD[m[0]]
       if rw
         result.push make(rw, getTok())
       else
         result.push make("ID", getTok())
-    
-    # number.
     else if m = NUM.bexec(this)
       n = +getTok()
       if isFinite(n)
         result.push make("NUM", n)
       else
         make("NUM", m[0]).error "Bad number"
-    
-    # string
     else if m = STRING.bexec(this)
-      result.push make("STRING", 
-                        getTok().replace(/^["']|["']$/g, ""))
-    
-    # single-character operator
+      result.push make("STRING", getTok().replace(/^["']|["']$/g, ""))
     else if m = ONECHAROPERATORS.bexec(this)
       result.push make(m[0], getTok())
     else
-      throw "Syntax error near '#{@substr(i)}'"
+      throw "Syntax error near '" + (@substr(i)) + "'"
   result
 
 parse = (input) ->
+  expression = undefined
+  factor = undefined
+  lookahead = undefined
+  match = undefined
+  statement = undefined
+  statements = undefined
+  term = undefined
+  tokens = undefined
+  tree = undefined
   tokens = input.tokens()
   lookahead = tokens.shift()
   match = (t) ->
     if lookahead.type is t
       lookahead = tokens.shift()
       lookahead = null  if typeof lookahead is "undefined"
-    else # Error. Throw exception
-      throw "Syntax Error. Expected #{t} found '" + 
-            lookahead.value + "' near '" + 
-            input.substr(lookahead.from) + "'"
+    else
+      throw ("Syntax Error. Expected " + t + " found '") + lookahead.value + "' near '" + input.substr(lookahead.from) + "'"
     return
 
   statements = ->
+    result = undefined
     result = [statement()]
     while lookahead and lookahead.type is ";"
       match ";"
       result.push statement()
-    (if result.length is 1 then result[0] else result)
+    if result.length is 1
+      result[0]
+    else
+      result
 
   statement = ->
+    left = undefined
+    result = undefined
+    right = undefined
     result = null
     if lookahead and lookahead.type is "ID"
       left =
@@ -145,13 +163,13 @@ parse = (input) ->
       result =
         type: "P"
         value: right
-    else # Error!
-      throw "Syntax Error. Expected identifier but found " + 
-        (if lookahead then lookahead.value else "end of input") + 
-        " near '#{input.substr(lookahead.from)}'"
+    else
+      throw "Syntax Error. Expected identifier but found " + ((if lookahead then lookahead.value else "end of input")) + (" near '" + (input.substr(lookahead.from)) + "'")
     result
 
   expression = ->
+    result = undefined
+    right = undefined
     result = term()
     if lookahead and lookahead.type is "+"
       match "+"
@@ -160,9 +178,18 @@ parse = (input) ->
         type: "+"
         left: result
         right: right
+    else if lookahead and lookahead.type is "-"
+      match "-"
+      right = expression()
+      result =
+        type: "-"
+        left: result
+        right: right
     result
 
   term = ->
+    result = undefined
+    right = undefined
     result = factor()
     if lookahead and lookahead.type is "*"
       match "*"
@@ -171,9 +198,17 @@ parse = (input) ->
         type: "*"
         left: result
         right: right
+    else if lookahead and lookahead.type is "/"
+      match "/"
+      right = term()
+      result =
+        type: "/"
+        left: result
+        right: right
     result
 
   factor = ->
+    result = undefined
     result = null
     if lookahead.type is "NUM"
       result =
@@ -191,15 +226,10 @@ parse = (input) ->
       match "("
       result = expression()
       match ")"
-    else # Throw exception
-      throw "Syntax Error. Expected number or identifier or '(' but found " + 
-        (if lookahead then lookahead.value else "end of input") + 
-        " near '" + input.substr(lookahead.from) + "'"
+    else
+      throw "Syntax Error. Expected number or identifier or '(' but found " + ((if lookahead then lookahead.value else "end of input")) + " near '" + input.substr(lookahead.from) + "'"
     result
 
   tree = statements(input)
-  if lookahead?
-    throw "Syntax Error parsing statements. " + 
-      "Expected 'end of input' and found '" + 
-      input.substr(lookahead.from) + "'"  
+  throw "Syntax Error parsing statements. " + "Expected 'end of input' and found '" + input.substr(lookahead.from) + "'"  if lookahead?
   tree
