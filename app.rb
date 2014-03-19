@@ -4,7 +4,6 @@ require 'sass'
 require 'bcrypt'
 require 'slim'
 require 'data_mapper'
-require 'sinatra/base'
 require 'coffee-script'
 
 set :public_folder, File.dirname(__FILE__)
