@@ -8,7 +8,6 @@ main = ->
   OUTPUT.innerHTML = result
 
 $(document).ready ->
-  console.log "listo"
   PARSE.onclick = main
 
 Object.constructor::error = (message, t) ->
