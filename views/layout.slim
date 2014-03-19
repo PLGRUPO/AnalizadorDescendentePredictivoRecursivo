@@ -20,6 +20,8 @@ html
     title
       |  Predictive Recursive Descent Parser
   body  
+    #content
+      == yield
     #header.box
       a.large type='button' target='_blank' href='https://github.com/PLGRUPO/AnalizadorDescendentePredictivoRecursivo'
         i.fa.fa-github-alt
@@ -42,5 +44,3 @@ html
         .error = "There was an error: #{@error_message}"
       - if !@message.nil?
         .message = @message
-    #content
-      == yield
