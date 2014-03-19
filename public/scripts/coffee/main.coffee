@@ -37,7 +37,9 @@ String::tokens = ->
     STRING: /('(\\.|[^'])*'|"(\\.|[^"])*")/g
     ONELINECOMMENT: /\/\/.*/g
     MULTIPLELINECOMMENT: /\/[*](.|\n)*?[*]\//g
-    ONECHAROPERATORS: /([-+*\/=()&|;:,<>{}[\]])/g
+    ONECHAROPERATORS: /([=()&|;:,<>{}[\]])/g
+    ADDSUBOPERATORS: /[+-]/
+    MULTDIVOPERATORS: /[*\/]/
     COMPARISONOPERATOR: /[<>=!]=|[<>]/g
 
   RESERVED_WORD =
@@ -82,6 +84,10 @@ String::tokens = ->
       result.push make("STRING", getTok().replace(/^["']|["']$/g, ""))
     else if m = tokens.COMPARISONOPERATOR.bexec(this)
       result.push make("COMPARISON", getTok())
+    else if m = tokens.ADDSUBOPERATORS.bexec(this)
+      result.push make("ADDSUB", getTok())
+    else if m = tokens.MULTDIVOPERATORS.bexec(this)
+      result.push make("MULTDIV", getTok())
     else if m = tokens.ONECHAROPERATORS.bexec(this)
       result.push make(m[0], getTok())
     else
@@ -129,17 +135,28 @@ parse = (input) ->
       result =
         type: "P"
         value: right
-    #else if lookahead and lookahead.type is "IF"
-    #  match "IF"
-    #  left = condition()
-    #  match "THEN"
-    #  right = statement
-    #  result =
-    #    type: "IF"
-    #    left: left
-    #    right: right
+    else if lookahead and lookahead.type is "IF"
+      match "IF"
+      left = condition()
+      match "THEN"
+      right = statement
+      result =
+        type: "IF"
+        left: left
+        right: right
     else
       throw "Syntax Error. Expected identifier but found " + ((if lookahead then lookahead.value else "end of input")) + (" near '" + (input.substr(lookahead.from)) + "'")
+    result
+
+  condition = ->
+    left = expression()
+    type = lookahead.value
+    match "COMPARISON"
+    right = expression()
+    result =
+      left: left
+      right: right
+      type: type
     result
 
   expression = ->
