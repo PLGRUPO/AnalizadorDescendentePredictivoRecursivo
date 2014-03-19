@@ -1,3 +1,4 @@
+
 handleFileSelect = (evt) ->
   evt.stopPropagation()
   evt.preventDefault()
