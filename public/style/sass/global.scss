@@ -45,10 +45,17 @@
 }
 
 body {
-  background: url("../public/../resources/images/images.jpg") no-repeat center center fixed;
+  background: url("/public/style/resources/images/images.jpg") no-repeat center center fixed;
   margin: 5px;
   color: white;
   @include bg-size(cover);
+}
+
+#description {
+  color: black;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+  background-color: rgba(200,200,200,0.5);
 }
 
 h1, h2 {
