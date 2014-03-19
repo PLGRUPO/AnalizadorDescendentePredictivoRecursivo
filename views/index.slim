@@ -68,9 +68,8 @@ h1 Predictive Recursive Descent Parser
     button#PARSE Parse
 
 javascript:
-
   $( document ).ready(function() {
-    var editor = CodeMirror.fromTextArea($('#')[0], {
+    var editor = CodeMirror.fromTextArea($('#INPUT')[0], {
       mode: "javascript",
       lineNumbers: true,
       lineWrapping: true,
@@ -78,8 +77,10 @@ javascript:
       foldGutter: true,
       gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
     });
-    editor.foldCode(CodeMirror.Pos(11, 0));
+    editor.foldCode(CodeMirror.Pos(11, 4));
+    editor.html("a=rrrrrrrr");
   });
+  
   
 #contentright
   h2 Input
