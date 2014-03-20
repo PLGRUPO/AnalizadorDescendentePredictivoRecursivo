@@ -51,13 +51,6 @@ body {
   @include bg-size(cover);
 }
 
-#description {
-  color: black;
-  padding: 10px 10px;
-  margin-bottom: 10px;
-  background-color: rgba(200,200,200,0.5);
-}
-
 h1, h2 {
   color: #fff !important;
   text-align: center;
@@ -84,6 +77,13 @@ h1, h2 {
 }
 
 /* Estilos del contenido */
+
+#description {
+  color: black;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+  background-color: rgba(200,200,200,0.5);
+}
 
 $content-height: 500px;
 

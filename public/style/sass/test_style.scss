@@ -4,7 +4,7 @@
 }
 
 #mocha {
-  background-color: rgba(32,32,32,0.75);
+  background-color: rgba(50,50,50,0.5);
   padding-top: 10px;
   padding-right: 10px;
 
@@ -21,6 +21,7 @@
   h1 {
     @extend .titles;
     font-size: 27px;
+    background-color: rgb(20,20,20);
   }
 
   h2 {
