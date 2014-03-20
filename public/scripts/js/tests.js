@@ -5,10 +5,7 @@ var assert = chai.assert,
 var assert = chai.assert;
 
 var foobar = {
-  input1: function() {
-    return mainTest(" a = 5;");
-  },
- 
+
   localStore: function() {
     if(localStorage){
       return "true";
@@ -17,7 +14,9 @@ var foobar = {
       return "false";
       
     }
-
+  },
+  test: function(text) {
+    return test_main(text);
   }
 };
 
@@ -29,6 +28,24 @@ suite('Lexical Analysis ', function() {
     });
     
     test('Create variable and assign value ', function () {
-      assert.deepEqual(foobar.input1(),'{"value":"=","arity":"binary","first":{"value":"a","arity":"name"},"second":{"value":3,"arity":"literal"}}');
+      assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
     });
+    test('Create variable and assign value ', function () {
+      assert.deepEqual(foobar.test("CONST x = 0; \nVAR a, b, c;"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
+    });
+    test('Create variable and assign value ', function () {
+      assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
+    });
+    test('Create variable and assign value ', function () {
+      assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
+    });
+    test('Create variable and assign value ', function () {
+      assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
+    });
+    test('Create variable and assign value ', function () {
+      assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
+    });
+
+    
+  
 });
