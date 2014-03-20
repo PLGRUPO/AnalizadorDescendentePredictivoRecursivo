@@ -11,8 +11,6 @@ main = ->
 $(document).ready ->
   PARSE.onclick = main
 
-
-
 Object.constructor::error = (message, t) ->
   t = t or this
   t.name = "SyntaxError"
@@ -94,49 +92,48 @@ String::tokens = ->
 
     from = i
     
-    # Ignore whitespace and comments
-    if m = WHITES.bexec(this) or 
-           (m = ONELINECOMMENT.bexec(this)) or 
-           (m = MULTIPLELINECOMMENT.bexec(this))
+    # Espacios en blanco y comentarios se ignoran
+    if m = WHITES.bexec(this) or (m = ONELINECOMMENT.bexec(this)) or (m = MULTIPLELINECOMMENT.bexec(this))
       getTok()
-    
-    # name.
+
+    # Identificadores y palabras reservadas
     else if m = ID.bexec(this)
       rw = RESERVED_WORDS[m[0]]
       if rw
         result.push make(rw, getTok())
       else
         result.push make("ID", getTok())
-    
-    # number.
+
+    # Números
     else if m = NUM.bexec(this)
       n = +getTok()
       if isFinite(n)
         result.push make("NUM", n)
       else
         make("NUM", m[0]).error "Bad number"
-    
-   
+
+    # Cadenas de literales
     else if m = STRING.bexec(this)
-      result.push make("STRING", 
-                        getTok().replace(/^["']|["']$/g, ""))
-    
+      result.push make("STRING", getTok().replace(/^["']|["']$/g, ""))
+
+    # Operador de asignación
     else if m = COMPARISONOPERATOR.bexec(this)
       result.push make("COMPARISON", getTok())
-    
-    
+
+    # Operadores de adición y substracción
     else if m = ADDOP.bexec(this)
       result.push make("ADDOP", getTok())
-    
- 
+
+    # Operadores de multiplicación y división
     else if m = MULTOP.bexec(this)
       result.push make("MULTOP", getTok())
-    
-   
+
+    # Operadores de un solo símbolo
     else if m = ONECHAROPERATORS.bexec(this)
       result.push make(m[0], getTok())
     else
       throw "Syntax error near '#{@substr(i)}'"
+
   result
 
 parse = (input) ->
@@ -147,77 +144,73 @@ parse = (input) ->
       lookahead = tokens.shift()
       lookahead = null  if typeof lookahead is "undefined"
     else 
-      throw "Syntax Error. Expected #{t} found '" + 
-            lookahead.value + "' near '" + 
-            input.substr(lookahead.from) + "'"
+      throw "Syntax Error. Expected #{t} found '" + lookahead.value + "' near '" + input.substr(lookahead.from) + "'"
     return
-
 
   program = ->
     result = block()
     if lookahead and lookahead.type is "."
       match "."
     else
-      throw "Syntax Error. Expected '.' Remember to end
-                 your input with a ."
+      throw "Syntax Error. Expected '.' Remember to end your input with a ."
     result
 
   block = ->
     resultarr = []
-
     if lookahead and lookahead.type is "CONST"
-       match "CONST"
-       constante = ->
-         result = null
-         if lookahead and lookahead.type is "ID"
-           left =
-             type: "Const ID"
-             value: lookahead.value
-           match "ID"
-           match "="
-           if lookahead and lookahead.type is "NUM"
-             right =
-               type: "NUM"
-               value: lookahead.value
-             match "NUM"
-           else # Error!
-             throw "Syntax Error. Expected NUM but found " + 
-                   (if lookahead then lookahead.value else "end of input") + 
-                   " near '#{input.substr(lookahead.from)}'"
-         else # Error!
-           throw "Syntax Error. Expected ID but found " + 
-                 (if lookahead then lookahead.value else "end of input") + 
-                 " near '#{input.substr(lookahead.from)}'"
-         result =
-           type: "="
-           left: left
-           right: right
-         result
-       resultarr.push constante()
-       while lookahead and lookahead.type is ","
-         match ","
-         resultarr.push constante()
-       match ";"
+      match "CONST"
+      constante = ->
+        result = null
+        if lookahead and lookahead.type is "ID"
+          left =
+            type: "Const ID"
+            value: lookahead.value
+          match "ID"
+          match "="
+          if lookahead and lookahead.type is "NUM"
+            right =
+              type: "NUM"
+              value: lookahead.value
+            match "NUM"
+          else
+            throw "Syntax Error. Expected NUM but found " +
+                  (if lookahead then lookahead.value else "end of input") +
+                  " near '#{input.substr(lookahead.from)}'"
+        else
+          throw "Syntax Error. Expected ID but found " +
+                (if lookahead then lookahead.value else "end of input") +
+                " near '#{input.substr(lookahead.from)}'"
+        result =
+          type: "="
+          left: left
+          right: right
+        result
+      resultarr.push constante()
+
+      while lookahead and lookahead.type is ","
+        match ","
+        resultarr.push constante()
+      match ";"
     
     if lookahead and lookahead.type is "VAR"
-       match "VAR"
-       variable = ->
-         result = null
-         if lookahead and lookahead.type is "ID"
-           result =
-             type: "Var ID"
-             value: lookahead.value
-           match "ID"
-         else # Error!
-           throw "Syntax Error. Expected ID but found " + 
-                 (if lookahead then lookahead.value else "end of input") + 
-                 " near '#{input.substr(lookahead.from)}'"
-         result
-       resultarr.push variable()
-       while lookahead and lookahead.type is ","
-         match ","
-         resultarr.push variable()
-       match ";"
+      match "VAR"
+      variable = ->
+        result = null
+        if lookahead and lookahead.type is "ID"
+          result =
+            type: "Var ID"
+            value: lookahead.value
+          match "ID"
+        else
+          throw "Syntax Error. Expected ID but found " + 
+                (if lookahead then lookahead.value else "end of input") + 
+                " near '#{input.substr(lookahead.from)}'"
+        result
+      resultarr.push variable()
+      while lookahead and lookahead.type is ","
+        match ","
+        resultarr.push variable()
+      match ";"
   
     proced = ->
       result = null
@@ -231,7 +224,7 @@ parse = (input) ->
           value: value
           left: block()
         match ";"
-      else # Error!
+      else
         throw "Syntax Error. Expected ID but found " + 
               (if lookahead then lookahead.value else "end of input") + 
               " near '#{input.substr(lookahead.from)}'"
@@ -348,23 +341,25 @@ parse = (input) ->
 
   factor = ->
     result = null
+
     if lookahead.type is "NUM"
       result =
         type: "NUM"
         value: lookahead.value
-
       match "NUM"
+
     else if lookahead.type is "ID"
       result =
         type: "ID"
         value: lookahead.value
-
       match "ID"
+
     else if lookahead.type is "("
       match "("
       result = expression()
       match ")"
-    else # Throw exception
+
+    else
       throw "Syntax Error. Expected number or identifier or '(' but found " + 
             (if lookahead then lookahead.value else "end of input") + 
             " near '" + input.substr(lookahead.from) + "'"
@@ -377,13 +372,7 @@ parse = (input) ->
           input.substr(lookahead.from) + "'"  
   tree
 
-      
-      
-      
-      
-      
-      
-#Implementado para los test
+# Make a test_main function visible to tests
 root = exports ? this
 root.test_main = (text) ->
   source = text
@@ -392,5 +381,3 @@ root.test_main = (text) ->
   catch result
     result = "<div class=\"error\">" + result + "</div>"
   return result.replace /\n/g,''
-
-
