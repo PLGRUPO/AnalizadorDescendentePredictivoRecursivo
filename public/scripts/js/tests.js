@@ -27,22 +27,16 @@ suite('Lexical Analysis ', function() {
         assert.deepEqual(foobar.localStore(),'true');
     });
     
-    test('Create variable and assign value ', function () {
+    test('Input ->  a = 5 ', function () {
       assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
     });
-    test('Create variable and assign value ', function () {
+    test('Input ->  a = 5 ', function () {
       assert.deepEqual(foobar.test("CONST x = 0; \nVAR a, b, c;"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
     });
-    test('Create variable and assign value ', function () {
+    test('Input ->  a = 5 ', function () {
       assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
     });
-    test('Create variable and assign value ', function () {
-      assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
-    });
-    test('Create variable and assign value ', function () {
-      assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
-    });
-    test('Create variable and assign value ', function () {
+    test('Input ->  a = 5 ', function () {
       assert.deepEqual(foobar.test("a = 5"),'{  "type": "=",  "left": {    "type": "ID",    "value": "a"  },  "right": {    "type": "NUM",    "value": 5  }}');
     });
 
