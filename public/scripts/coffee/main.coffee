@@ -220,3 +220,15 @@ parse = (input) ->
   tree = statements(input)
   throw "Syntax Error parsing statements. " + "Expected 'end of input' and found '" + input.substr(lookahead.from) + "'"  if lookahead?
   tree
+  
+  
+root = exports ? this
+root.test_main = (text) ->
+  source = text
+  try
+    result = JSON.stringify(parse(source), null, 2)
+  catch result
+    result = "<div class=\"error\">" + result + "</div>"
+  return result.replace /\n/g,''
+
+
