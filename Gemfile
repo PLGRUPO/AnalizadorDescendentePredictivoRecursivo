@@ -9,7 +9,7 @@ gem 'sinatra-google-auth'
 gem 'sass'
 gem 'coffee-script'
 gem 'therubyracer'
-gem 'tilt'
+gem 'tilt', '~> 1.4.1'
 
 group :development, :test do
   gem 'dm-sqlite-adapter'

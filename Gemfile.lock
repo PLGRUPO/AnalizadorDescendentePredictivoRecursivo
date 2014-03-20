@@ -98,6 +98,8 @@ GEM
     rack-openid (1.3.1)
       rack (>= 1.1.0)
       ruby-openid (>= 2.1.8)
+    rack-protection (1.5.2)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     ref (1.0.5)
@@ -114,8 +116,10 @@ GEM
       ruby-openid (>= 2.1.7)
     rufus-tokyo (1.0.7)
     sass (3.3.3)
-    sinatra (1.0)
-      rack (>= 1.0)
+    sinatra (1.4.4)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
     sinatra-authentication (0.4.1)
       dm-core
       dm-migrations
@@ -138,7 +142,7 @@ GEM
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
-    tilt (2.0.0)
+    tilt (1.4.1)
     uuidtools (2.1.4)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -163,5 +167,5 @@ DEPENDENCIES
   sinatra-google-auth
   slim
   therubyracer
-  tilt
+  tilt (~> 1.4.1)
   yard
