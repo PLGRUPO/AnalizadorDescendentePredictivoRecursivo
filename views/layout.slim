@@ -4,26 +4,24 @@ html
 
     link href="/style/sass/global.css" rel="stylesheet" type="text/css"
     link href="/public/MetroUICSS/metro-bootstrap.css" rel="stylesheet" type="text/css"
-    
+
     link href="/public/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"
 
     link href="/public/resources/images/favicon.png" rel="shortcut icon" type="image/png"
     link href="/public/resources/images/favicon.png" rel="icon" type="image/png"
     link href="/public/codeMirror/codemirror.css" rel="icon" type="image/png"
-    
-    
-    script src='/scripts/coffee/app.js'
-    script src="/scripts/coffee/main.js"
-    script type='text/javascript' src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" 
+
     script type='text/javascript' src='/public/scripts/js/JQuery.js'
     script type='text/javascript' src='/public/codeMirror/codemirror.js'
+    script src='/scripts/coffee/app.js'
+    script src='/scripts/coffee/main.js'
     script src='/scripts/coffee/dragdrop.js'
 
-    
-    
     title
       |  Predictive Recursive Descent Parser
   body  
+    #content
+      == yield
     #header.box
       a.large type='button' target='_blank' href='https://github.com/PLGRUPO/AnalizadorDescendentePredictivoRecursivo'
         i.fa.fa-github-alt
@@ -46,5 +44,3 @@ html
         .error = "There was an error: #{@error_message}"
       - if !@message.nil?
         .message = @message
-    #content
-      == yield
