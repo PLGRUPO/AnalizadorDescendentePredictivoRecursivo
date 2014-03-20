@@ -11,6 +11,64 @@ main = ->
 $(document).ready ->
   PARSE.onclick = main
 
+
+
+Object.constructor::error = (message, t) ->
+  t = t or this
+  t.name = "SyntaxError"
+  t.message = message
+  throw treturn
+
+RegExp::bexec = (str) ->
+  i = @lastIndex
+  m = @exec(str)
+  return m  if m and m.index is i
+  null
+
+String::tokens = ->
+  from = undefined 
+  i = 0 
+  n = undefined 
+  m = undefined 
+  result = [] 
+  WHITES = /\s+/g
+  ID = /[a-zA-Z_]\w*/g
+  NUM = /\b\d+(\.\d*)?([eE][+-]?\d+)?\b/g
+  STRING = /('(\\.|[^'])*'|"(\\.|[^"])*")/g
+  ONELINECOMMENT = /\/\/.*/g
+  MULTIPLELINECOMMENT = /\/[*](.|\n)*?[*]\//g
+  COMPARISONOPERATOR = /[<>=!]=|[<>]/g
+  ADDOP = /[+-]/g
+  MULTOP = /[*\/]/g
+  ONECHAROPERATORS = /([=()&|;:,\.<>{}[\]])/g
+  #ASSIGN = /:=/g
+  tokens = [
+    WHITES
+    ID
+    NUM
+    STRING
+    ONELINECOMMENT
+    MULTIPLELINECOMMENT
+    COMPARISONOPERATOR
+    ADDOP
+    MULTOP
+    ONECHAROPERATORS
+    #ASSIGN
+  ]
+  RESERVED_WORDS =
+    P: "P" 
+    CONST: "CONST" 
+    VAR: "VAR" 
+    PROCEDURE: "PROCEDURE" 
+    CALL: "CALL" 
+    BEGIN: "BEGIN" 
+    END: "END" 
+    IF: "IF" 
+    THEN: "THEN" 
+    WHILE: "WHILE" 
+    DO: "DO" 
+    ODD: "ODD"
+    #ASSIGN: "ASSIGN"  
   
   # Make a token object.
   make = (type, value) ->
@@ -30,7 +88,7 @@ $(document).ready ->
   
   # Loop through this text
   while i < @length
-    tokens.forEach (t) -> # Only ECMAScript5
+    tokens.forEach (t) -> 
       t.lastIndex = i
       return
 
@@ -58,24 +116,23 @@ $(document).ready ->
       else
         make("NUM", m[0]).error "Bad number"
     
-    # string
+   
     else if m = STRING.bexec(this)
       result.push make("STRING", 
                         getTok().replace(/^["']|["']$/g, ""))
     
-    # comparison
     else if m = COMPARISONOPERATOR.bexec(this)
       result.push make("COMPARISON", getTok())
     
-    # addop
+    
     else if m = ADDOP.bexec(this)
       result.push make("ADDOP", getTok())
     
-    # multop
+ 
     else if m = MULTOP.bexec(this)
       result.push make("MULTOP", getTok())
     
-    # single-character operator
+   
     else if m = ONECHAROPERATORS.bexec(this)
       result.push make(m[0], getTok())
     else
@@ -89,7 +146,7 @@ parse = (input) ->
     if lookahead.type is t
       lookahead = tokens.shift()
       lookahead = null  if typeof lookahead is "undefined"
-    else # Error. Throw exception
+    else 
       throw "Syntax Error. Expected #{t} found '" + 
             lookahead.value + "' near '" + 
             input.substr(lookahead.from) + "'"
@@ -320,63 +377,6 @@ parse = (input) ->
           input.substr(lookahead.from) + "'"  
   tree
 
-
-Object.constructor::error = (message, t) ->
-  t = t or this
-  t.name = "SyntaxError"
-  t.message = message
-  throw treturn
-
-RegExp::bexec = (str) ->
-  i = @lastIndex
-  m = @exec(str)
-  return m  if m and m.index is i
-  null
-
-String::tokens = ->
-  from = undefined # The index of the start of the token.
-  i = 0 # The index of the current character.
-  n = undefined # The number value.
-  m = undefined # Matching
-  result = [] # An array to hold the results.
-  WHITES = /\s+/g
-  ID = /[a-zA-Z_]\w*/g
-  NUM = /\b\d+(\.\d*)?([eE][+-]?\d+)?\b/g
-  STRING = /('(\\.|[^'])*'|"(\\.|[^"])*")/g
-  ONELINECOMMENT = /\/\/.*/g
-  MULTIPLELINECOMMENT = /\/[*](.|\n)*?[*]\//g
-  COMPARISONOPERATOR = /[<>=!]=|[<>]/g
-  ADDOP = /[+-]/g
-  MULTOP = /[*\/]/g
-  ONECHAROPERATORS = /([=()&|;:,\.<>{}[\]])/g
-  #ASSIGN = /:=/g
-  tokens = [
-    WHITES
-    ID
-    NUM
-    STRING
-    ONELINECOMMENT
-    MULTIPLELINECOMMENT
-    COMPARISONOPERATOR
-    ADDOP
-    MULTOP
-    ONECHAROPERATORS
-    #ASSIGN
-  ]
-  RESERVED_WORDS =
-    P: "P" 
-    CONST: "CONST" 
-    VAR: "VAR" 
-    PROCEDURE: "PROCEDURE" 
-    CALL: "CALL" 
-    BEGIN: "BEGIN" 
-    END: "END" 
-    IF: "IF" 
-    THEN: "THEN" 
-    WHILE: "WHILE" 
-    DO: "DO" 
-    ODD: "ODD"
-    #ASSIGN: "ASSIGN"  
       
       
       

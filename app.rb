@@ -144,8 +144,10 @@ post '/files/create' do
   else
     c.userID = "public"
   end
-  c.save
-  redirect("/") 
+  
+  if c.save
+    redirect("/") 
+  end
   # redirect("/files/list")
 end
 
@@ -166,10 +168,12 @@ end
 post '/user/create' do
   c = User.new
   c.attributes = params
-  c.save
+  #c.save
 
   #redirect("/user/#{c.userID}")
-  redirect("/") 
+  if c.save
+    redirect("/") 
+  end
 end
 
 get '/user/:userID' do|userID|

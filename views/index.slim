@@ -68,6 +68,8 @@ h1 Predictive Recursive Descent Parser
     button#PARSE Parse
 
 javascript:
+
+
   $( document ).ready(function() {
     var editor = CodeMirror.fromTextArea($('#INPUT')[1], {
       mode: "javascript",
@@ -79,16 +81,22 @@ javascript:
     });
     editor.foldCode(CodeMirror.Pos(11, 4));
     editor.html("a=rrrrrrrr");
+    
+
   });
-  
+
   
 #contentright
   h2 Input
   form style='height: 100%;' action="#{action}" method="POST"
-    textarea#INPUT wrap="off" spellcheck="false" name="INPUT" value="#{c.content}"
-      |  a = 5
+    textarea#INPUT wrap="off" spellcheck="false" name="INPUT"
+      | CONST  m =  7,  n = 85; 
+      | VAR a, b; 
+      |   BEGIN 
+      |    a = x; 
+      |    b = 4
+      |   END.
     button#savebutton type='submit' Save
-
 #outputdiv style='display: none;'
   #outputheader Tokens found
   pre#OUTPUT 
