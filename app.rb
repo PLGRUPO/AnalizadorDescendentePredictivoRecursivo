@@ -5,6 +5,7 @@ require 'slim'
 require 'data_mapper'
 require 'sinatra/base'
 require 'sass'
+require 'v8'
 require 'coffee-script'
 
 set :public_folder, File.dirname(__FILE__)
