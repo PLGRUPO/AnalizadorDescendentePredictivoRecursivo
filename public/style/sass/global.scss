@@ -55,6 +55,7 @@ h1, h2 {
   color: #fff !important;
   text-align: center;
   background-color: rgba(32,32,32,0.9);
+  border: 2px solid black;
 }
 
 /* Estilos de la barra superior */
@@ -210,15 +211,15 @@ button {
 }
 
 #dragandrophandler {
-	border: 2px dotted #0B85A1;
-	color: #000;
-	text-align: center;
+  border: 2px dotted #0B85A1;
+  color: #000;
+  text-align: center;
   vertical-align: middle;
-	padding: 10px 10px 10 10px;
-	margin-bottom: 10px;
-	font-size: 200%;
-	background-color: white;
-	opacity: 0.4;
+  padding: 10px 10px 10 10px;
+  margin-bottom: 10px;
+  font-size: 200%;
+  background-color: white;
+  opacity: 0.4;
 
   &:hover {
     opacity: 0.8;
