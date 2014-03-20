@@ -200,125 +200,57 @@ parse = (input) ->
       else
         throw "Error. Expecting ID"
 
-    statement()
+    result.push statement()
+    result
 
   statement = ->
-    result = []
+    result = null
+    if lookahead and lookahead.type is "ID"
+      name = lookahead.value
+      match "ID"
 
+      if lookahead and lookahead.type is "ASSIGN"
+        match "ASSIGN"
 
-  # Anterior
-  #statements = ->
-  #  result = [statement()]
-  #  while lookahead and lookahead.type is ";"
-  #    match ";"
-  #    result.push statement()
-  #  if result.length is 1
-  #    result[0]
-  #  else
-  #    result
+        result =
+          type: "ASSIGNATION"
+          left: name
+          right: expression()
+      else
+        throw "Error. Expected ':='."
 
-  #statement = ->
-  #  result = null
-  #  if lookahead and lookahead.type is "ID"
-  #    left =
-  #      type: "ID"
-  #      value: lookahead.value
+    else if lookahead and lookahead.type is "CALL"
+      match "CALL"
 
-  #    match "ID"
-  #    match "="
-  #    right = expression()
-  #    result =
-  #      type: "="
-  #      left: left
-  #      right: right
-  #  else if lookahead and lookahead.type is "P"
-  #    match "P"
-  #    right = expression()
-  #    result =
-  #      type: "P"
-  #      value: right
-  #  else if lookahead and lookahead.type is "IF"
-  #    match "IF"
-  #    left = condition()
-  #    match "THEN"
-  #    right = statement
-  #    result =
-  #      type: "IF"
-  #      left: left
-  #      right: right
-  #  else
-  #    throw "Syntax Error. Expected identifier but found " + ((if lookahead then lookahead.value else "end of input")) + (" near '" + (input.substr(lookahead.from)) + "'")
-  #  result
+      if lookahead and lookahead.type is "ID"
+        result =
+          type: "CALL"
+          value: lookahead.value
+        match "ID"
+      else
+        throw "Error. Expecting ID."
 
-  #condition = ->
-  #  left = expression()
-  #  type = lookahead.value
-  #  match "COMPARISON"
-  #  right = expression()
-  #  result =
-  #    left: left
-  #    right: right
-  #    type: type
-  #  result
+    else if lookahead and lookahead.type is "BEGIN"
+      match "BEGIN"
+      stmnts = [statement()]
 
-  #expression = ->
-  #  result = term()
-  #  if lookahead and lookahead.type is "+"
-  #    match "+"
-  #    right = expression()
-  #    result =
-  #      type: "+"
-  #      left: result
-  #      right: right
-  #  else if lookahead and lookahead.type is "-"
-  #    match "-"
-  #    right = expression()
-  #    result =
-  #      type: "-"
-  #      left: result
-  #      right: right
-  #  result
+      while lookahead and lookahead.type is ";"
+        match ";"
+        stmnts.push statement()
 
-  #term = ->
-  #  result = factor()
-  #  if lookahead and lookahead.type is "*"
-  #    match "*"
-  #    right = term()
-  #    result =
-  #      type: "*"
-  #      left: result
-  #      right: right
-  #  else if lookahead and lookahead.type is "/"
-  #    match "/"
-  #    right = term()
-  #    result =
-  #      type: "/"
-  #      left: result
-  #      right: right
-  #  result
+      if lookahead and lookahead.type is "END"
+        result = stmnts
+      else
+        throw "Error. Expected 'END'."
 
-  #factor = ->
-  #  result = null
-  #  if lookahead.type is "NUM"
-  #    result =
-  #      type: "NUM"
-  #      value: lookahead.value
+    else if lookahead and lookahead.type is "IF"
 
-  #    match "NUM"
-  #  else if lookahead.type is "ID"
-  #    result =
-  #      type: "ID"
-  #      value: lookahead.value
+    else if lookahead and lookahead.type is "WHILE"
 
-  #    match "ID"
-  #  else if lookahead.type is "("
-  #    match "("
-  #    result = expression()
-  #    match ")"
-  #  else
-  #    throw "Syntax Error. Expected number or identifier or '(' but found " + ((if lookahead then lookahead.value else "end of input")) + " near '" + input.substr(lookahead.from) + "'"
-  #  result
+    else
+      throw "Error. Invalid statement."
 
-  #tree = statements(input)
-  #throw "Syntax Error parsing statements. " + "Expected 'end of input' and found '" + input.substr(lookahead.from) + "'"  if lookahead?
-  #tree
+    if result.length is 1
+      result[0]
+    else
+      result
