@@ -164,6 +164,7 @@ get '/user/new' do
   }
 end
 
+
 # Create new contact
 post '/user/create' do
   c = User.new
