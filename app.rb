@@ -9,6 +9,7 @@ require 'v8'
 require 'coffee-script'
 
 
+
 set :public_folder, File.dirname(__FILE__)
 
 # full path!
