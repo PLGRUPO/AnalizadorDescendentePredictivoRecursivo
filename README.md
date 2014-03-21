@@ -19,16 +19,26 @@ Las tecnologías que se utilizan en esta aplicación son las siguientes:
   - [Slim](http://slim-lang.com/)
   - [Sass](http://sass-lang.com/)
   - [CoffeeScript](http://coffeescript.org/)
+  - [jQuery](http://jquery.com/)
+  - [MathJax](http://www.mathjax.org/)
+  - [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
+  - [Metro Bootstrap](http://metroui.org.ua/)
   - [Ruby](https://www.ruby-lang.org/es/)
+  - [Bundler](http://bundler.io/)
   - [Sinatra](http://www.sinatrarb.com/)
   - [DataMapper](http://datamapper.org/)
   - [SQLite](https://sqlite.org/)
   - [PostgreSQL](http://www.postgresql.org/)
 
+Y para las pruebas:
+
+  - [Mocha](http://visionmedia.github.io/mocha/)
+  - [Chai](http://chaijs.com/)
+
 ## Despliegue
 
 El despliegue de esta aplicación web se encuentra en
-[Heroku](http://analizador-lexico-pl.herokuapp.com/).
+[Heroku](http://radiant-hollows-6375.herokuapp.com/).
 
 ## Tests
 
