@@ -1,4 +1,3 @@
-
 main = ->
   $('#outputdiv').css "display", ""
   source = INPUT.value
@@ -24,11 +23,11 @@ RegExp::bexec = (str) ->
   null
 
 String::tokens = ->
-  from = undefined 
-  i = 0 
-  n = undefined 
-  m = undefined 
-  result = [] 
+  from = undefined
+  i = 0
+  n = undefined
+  m = undefined
+  result = []
   WHITES = /\s+/g
   ID = /[a-zA-Z_]\w*/g
   NUM = /\b\d+(\.\d*)?([eE][+-]?\d+)?\b/g
@@ -39,7 +38,6 @@ String::tokens = ->
   ADDOP = /[+-]/g
   MULTOP = /[*\/]/g
   ONECHAROPERATORS = /([=()&|;:,\.<>{}[\]])/g
-  #ASSIGN = /:=/g
   tokens = [
     WHITES
     ID
@@ -51,23 +49,21 @@ String::tokens = ->
     ADDOP
     MULTOP
     ONECHAROPERATORS
-    #ASSIGN
   ]
   RESERVED_WORDS =
-    P: "P" 
-    CONST: "CONST" 
-    VAR: "VAR" 
-    PROCEDURE: "PROCEDURE" 
-    CALL: "CALL" 
-    BEGIN: "BEGIN" 
-    END: "END" 
-    IF: "IF" 
-    THEN: "THEN" 
-    WHILE: "WHILE" 
-    DO: "DO" 
+    P: "P"
+    CONST: "CONST"
+    VAR: "VAR"
+    PROCEDURE: "PROCEDURE"
+    CALL: "CALL"
+    BEGIN: "BEGIN"
+    END: "END"
+    IF: "IF"
+    THEN: "THEN"
+    WHILE: "WHILE"
+    DO: "DO"
     ODD: "ODD"
-    #ASSIGN: "ASSIGN"  
-  
+
   # Make a token object.
   make = (type, value) ->
     type: type
@@ -80,18 +76,18 @@ String::tokens = ->
     i += str.length # Warning! side effect on i
     str
 
-  
+
   # Begin tokenization. If the source string is empty, return nothing.
   return  unless this
-  
+
   # Loop through this text
   while i < @length
-    tokens.forEach (t) -> 
+    tokens.forEach (t) ->
       t.lastIndex = i
       return
 
     from = i
-    
+
     # Espacios en blanco y comentarios se ignoran
     if m = WHITES.bexec(this) or (m = ONELINECOMMENT.bexec(this)) or (m = MULTIPLELINECOMMENT.bexec(this))
       getTok()
@@ -143,7 +139,7 @@ parse = (input) ->
     if lookahead.type is t
       lookahead = tokens.shift()
       lookahead = null  if typeof lookahead is "undefined"
-    else 
+    else
       throw "Syntax Error. Expected #{t} found '" + lookahead.value + "' near '" + input.substr(lookahead.from) + "'"
     return
 
@@ -152,7 +148,7 @@ parse = (input) ->
     if lookahead and lookahead.type is "."
       match "."
     else
-      throw "Syntax Error. Expected '.' Remember to end your input with a ."
+      throw "Syntax Error. Expected '.' at the end of file."
     result
 
   block = ->
@@ -163,7 +159,7 @@ parse = (input) ->
         result = null
         if lookahead and lookahead.type is "ID"
           left =
-            type: "Const ID"
+            type: "CONSTANT"
             value: lookahead.value
           match "ID"
           match "="
@@ -191,19 +187,19 @@ parse = (input) ->
         match ","
         resultarr.push constante()
       match ";"
-    
+
     if lookahead and lookahead.type is "VAR"
       match "VAR"
       variable = ->
         result = null
         if lookahead and lookahead.type is "ID"
           result =
-            type: "Var ID"
+            type: "VARIABLE"
             value: lookahead.value
           match "ID"
         else
-          throw "Syntax Error. Expected ID but found " + 
-                (if lookahead then lookahead.value else "end of input") + 
+          throw "Syntax Error. Expected ID but found " +
+                (if lookahead then lookahead.value else "end of input") +
                 " near '#{input.substr(lookahead.from)}'"
         result
       resultarr.push variable()
@@ -211,7 +207,7 @@ parse = (input) ->
         match ","
         resultarr.push variable()
       match ";"
-  
+
     proced = ->
       result = null
       match "PROCEDURE"
@@ -220,13 +216,13 @@ parse = (input) ->
         match "ID"
         match ";"
         result =
-          type: "Procedure"
-          value: value
-          left: block()
+          type: "PROCEDURE"
+          name: value
+          oper: block()
         match ";"
       else
-        throw "Syntax Error. Expected ID but found " + 
-              (if lookahead then lookahead.value else "end of input") + 
+        throw "Syntax Error. Expected ID but found " +
+              (if lookahead then lookahead.value else "end of input") +
               " near '#{input.substr(lookahead.from)}'"
       result
     while lookahead and lookahead.type is "PROCEDURE"
@@ -258,7 +254,7 @@ parse = (input) ->
       match "P"
       right = expression()
       result =
-        type: "P"
+        type: "PRINT"
         value: right
     else if lookahead and lookahead.type is "CALL"
       match "CALL"
@@ -280,8 +276,8 @@ parse = (input) ->
       right = statement()
       result =
         type: "IF"
-        left: left
-        right: right
+        cond: left
+        oper: right
     else if lookahead and lookahead.type is "WHILE"
       match "WHILE"
       left = condition()
@@ -289,11 +285,11 @@ parse = (input) ->
       right = statement()
       result =
         type: "WHILE"
-        left: left
-        right: right
-    else # Error!
-      throw "Syntax Error. Expected identifier but found " + 
-            (if lookahead then lookahead.value else "end of input") + 
+        cond: left
+        oper: right
+    else
+      throw "Syntax Error. Expected identifier but found " +
+            (if lookahead then lookahead.value else "end of input") +
             " near '#{input.substr(lookahead.from)}'"
     result
 
@@ -360,16 +356,16 @@ parse = (input) ->
       match ")"
 
     else
-      throw "Syntax Error. Expected number or identifier or '(' but found " + 
-            (if lookahead then lookahead.value else "end of input") + 
+      throw "Syntax Error. Expected number or identifier or '(' but found " +
+            (if lookahead then lookahead.value else "end of input") +
             " near '" + input.substr(lookahead.from) + "'"
     result
 
   tree = program(input)
   if lookahead?
-    throw "Syntax Error parsing statements. " + 
-          "Expected 'end of input' and found '" + 
-          input.substr(lookahead.from) + "'"  
+    throw "Syntax Error parsing statements. " +
+          "Expected 'end of input' and found '" +
+          input.substr(lookahead.from) + "'"
   tree
 
 # Make a test_main function visible to tests
