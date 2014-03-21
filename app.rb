@@ -146,10 +146,8 @@ post '/files/create' do
   else
     c.userID = "public"
   end
-  
-  if c.save
-    redirect("/") 
-  end
+  c.save
+  redirect("/") 
   # redirect("/files/list")
 end
 
@@ -173,9 +171,9 @@ post '/user/create' do
   #c.save
 
   #redirect("/user/#{c.userID}")
-  if c.save
-    redirect("/") 
-  end
+  c.save
+  redirect("/") 
+  
 end
 
 get '/user/:userID' do|userID|
